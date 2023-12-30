@@ -1,0 +1,8 @@
+.gitignore
+**/__pycache__
+**/.env
+**/migrations/versions
+server/server/static/**
+.venv
+.vscode
+.idea
