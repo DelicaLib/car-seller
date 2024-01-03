@@ -65,7 +65,10 @@ class Login_data(BaseModel):
     password: str
 
     def verify_password(self, hashed_password: str):
-        return bcrypt.checkpw(password=self.password.encode(), hashed_password=hashed_password.encode())
+        try:
+            return bcrypt.checkpw(password=self.password.encode(), hashed_password=hashed_password.encode())
+        except ValueError as e:
+            return None
 
 
 class New_user(BaseModel):

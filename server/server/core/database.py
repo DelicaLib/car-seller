@@ -3,6 +3,7 @@ from sqlalchemy import or_, and_, between
 from datetime import datetime
 from decimal import Decimal
 from typing import List, Optional
+import shutil
 
 from server.server.api.models import models
 import server.server.api.models.schemas as schemas
@@ -136,12 +137,12 @@ def get_car(car_id: int):
     return make_car_scheme(car)
 
 
-def delete_car(car_id: int):
-    car = get_car_object(car_id)
+def delete_car(car: models.Car_):
     if car is None:
         return None
     car_scheme = make_car_scheme(car)
     session.delete(car)
+    shutil.rmtree("/".join(car_scheme.photos[0].split("/")[:4]))
     session.commit()
     return car_scheme
 
@@ -204,3 +205,5 @@ def login_user(login_data: schemas.Login_data) -> Optional[models.User_]:
     if not login_data.verify_password(found_user.hashed_password):
         return None
     return found_user
+
+

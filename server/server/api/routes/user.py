@@ -53,8 +53,17 @@ async def get_user(request: Request, user_id: int):
     found_user = database_get_user(user_id=user_id)
     if found_user is None:
         return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Пользователь не найден")
-    authorize_check_result = user.decode_jwt(json.loads(request.cookies["jwt_token"]))
-    print(authorize_check_result)
+
+    authorize_check_result = None
+    if "jwt_token" in request.cookies:
+        authorize_check_result = user.decode_jwt(json.loads(request.cookies["jwt_token"]))
     if authorize_check_result is None or authorize_check_result != found_user.id:
         user.delete_confidential_data(found_user)
     return found_user
+
+
+@router.post("/logout")
+async def logout():
+    response = JSONResponse(status_code=status.HTTP_200_OK, content="Вы вышли из аккаунта")
+    response.delete_cookie("jwt_token")
+    return response

@@ -1,3 +1,5 @@
+import shutil
+
 from fastapi import Request, status, UploadFile, APIRouter
 from fastapi.responses import JSONResponse
 from typing import List
@@ -13,17 +15,19 @@ router = APIRouter()
 
 
 @router.post("/upload_images")
-async def upload_images(request: Request, files: List[UploadFile]):
-    check_result = is_correct_files(files)
+async def upload_images(files: List[UploadFile]):
+    check_result = await is_correct_files(files)
     if not check_result:
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=check_result["msg"])
-    file_paths = do_upload_files(files)
+    file_paths = await do_upload_files(files)
     return file_paths
 
 
 @router.post("/new", response_model=schemas.Car)
 async def new_car(request: Request, new_car_data: schemas.New_car):
-    id_owner = decode_jwt(json.loads(request.cookies["jwt_token"]))
+    id_owner = None
+    if "jwt_token" in request.cookies:
+        id_owner = decode_jwt(json.loads(request.cookies["jwt_token"]))
     if id_owner is None:
         return JSONResponse(status_code=status.HTTP_401_UNAUTHORIZED, content="Вы не авторизованы")
 
@@ -31,7 +35,7 @@ async def new_car(request: Request, new_car_data: schemas.New_car):
 
 
 @router.get("/catalog/{car_id}", response_model=schemas.Car)
-async def get_car(request: Request, car_id: int):
+async def get_car(car_id: int):
     car = database.get_car(car_id)
     if car is None:
         return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Объявление не найдено")
@@ -40,9 +44,17 @@ async def get_car(request: Request, car_id: int):
 
 @router.delete("/", response_model=schemas.Car)
 async def delete_car(request: Request, car_id: schemas.Id):
-    car = database.delete_car(car_id.id)
+    id_owner = None
+    if "jwt_token" in request.cookies:
+        id_owner = decode_jwt(json.loads(request.cookies["jwt_token"]))
+    if id_owner is None:
+        return JSONResponse(status_code=status.HTTP_401_UNAUTHORIZED, content="Вы не авторизованы")
+    car = database.get_car_object(car_id.id)
     if car is None:
         return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Объявление не найдено")
+    if car.id_owner != id_owner:
+        return JSONResponse(status_code=status.HTTP_403_FORBIDDEN, content="Вы не можете удалить этот автомобиль")
+    car = database.delete_car(car)
     return car
 
 

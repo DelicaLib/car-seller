@@ -6,7 +6,7 @@ from re import split as re_split
 from datetime import datetime
 
 
-async def is_correct_files(files: List[UploadFile]):
+async def is_correct_files(files: List[UploadFile]) -> dict:
     if len(files) == 0:
         return dict(correct=False,
                     msg="Минимальное количество файлов - 1")
@@ -32,8 +32,8 @@ async def upload_files(files: List[UploadFile]):
     file_paths = []
     id_owner = 1
     folder_name = f"{id_owner}-{'+'.join(re_split('[ :]', str(datetime.now())))}"
-    os_mkdir(f"static/{folder_name}")
-    start_path = f"static/{folder_name}/"
+    os_mkdir(f"server/server/static/{folder_name}")
+    start_path = f"server/server/static/{folder_name}/"
     for file in files:
         path = start_path + f'{file.filename}'
         file_paths.append(path)
