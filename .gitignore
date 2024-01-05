@@ -1,6 +1,7 @@
 **/__pycache__
 **/.env
 **/migrations/versions/**
+!**/migrations/versions/__init__.py
 server/server/static/**
 .venv
 .vscode
