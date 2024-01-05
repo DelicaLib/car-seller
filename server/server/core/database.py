@@ -140,6 +140,7 @@ def get_car(car_id: int):
 def delete_car(car: models.Car_):
     if car is None:
         return None
+    delete_all_car_likes(car.id)
     car_scheme = make_car_scheme(car)
     session.delete(car)
     shutil.rmtree("/".join(car_scheme.photos[0].split("/")[:4]))
@@ -236,4 +237,55 @@ def change_user_data(user: models.User_, new_data: schemas.Change_user_data):
 
 
 def set_like(car_id: int, user_id: int):
-    pass
+    if has_like(user_id, car_id):
+        return {"successful": False, "msg": "Такой лайк уже есть"}
+    if session.query(models.Car_).filter(and_(models.Car_.id == car_id)).count() == 0:
+        return {"successful": False, "msg": "Такого авто нет"}
+    if session.query(models.User_).filter(and_(models.User_ .id == user_id)).count() == 0:
+        return {"successful": False, "msg": "Такого пользователя нет"}
+
+    new_like = models.Like_(id_user=user_id,
+                            id_car=car_id)
+    session.add(new_like)
+    session.commit()
+    return {"successful": True}
+
+
+def get_user_likes(user_id: int, page_size: int, page: int) -> List[schemas.Car]:
+    result = []
+    offset = page_size * (page - 1)
+    for i in session.query(models.Like_).filter(and_(models.Like_.id_user == user_id)).\
+            limit(page_size).offset(offset):
+        found_car = get_car(i.id_car)
+        if found_car is not None:
+            result.append(get_car(i.id_car))
+    return result
+
+
+def has_like(user_id: int, car_id: int):
+    return get_like(user_id, car_id).count() > 0
+
+
+def get_like(user_id: int, car_id: int):
+    return session.query(models.Like_).filter(and_(models.Like_.id_user == user_id, models.Like_.id_car == car_id))
+
+
+def delete_all_car_likes(car_id: int):
+    for i in session.query(models.Like_).filter(and_(models.Like_.id_car == car_id)):
+        session.delete(i)
+    session.commit()
+
+
+def delete_like(user_id: int, car_id: int):
+    cur_like = get_like(user_id, car_id)
+    if cur_like.count() == 0:
+        return {"successful": False, "msg": "Такого лайка нет"}
+    session.delete(cur_like.one())
+    session.commit()
+    return {"successful": True}
+
+
+def delete_all_car_responses(car_id: int):
+    for i in session.query(models.Response_).filter(and_(models.Response_.id_car == car_id)):
+        session.delete(i)
+    session.commit()
