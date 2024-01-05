@@ -1,6 +1,6 @@
 **/__pycache__
 **/.env
-**/migrations/versions
+**/migrations/versions/**
 server/server/static/**
 .venv
 .vscode
