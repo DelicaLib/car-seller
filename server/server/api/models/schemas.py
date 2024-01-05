@@ -61,19 +61,19 @@ class Id(BaseModel):
 
 
 class Login_data(BaseModel):
-    email: str
+    email: str = Field(max_length=100)
     password: str
 
     def verify_password(self, hashed_password: str):
         try:
             return bcrypt.checkpw(password=self.password.encode(), hashed_password=hashed_password.encode())
-        except ValueError as e:
+        except ValueError:
             return None
 
 
 class New_user(BaseModel):
-    name: str
-    surname: str
+    name: str = Field(max_length=50)
+    surname: str = Field(max_length=50)
     password: str
     email: str
     phone_number: str = Field(min_length=10, max_length=10)
@@ -95,8 +95,10 @@ class New_user(BaseModel):
             raise ValueError('Пароль должен содержать цифры')
         if not regex_special.search(password):
             raise ValueError('Пароль должен содержать специальные символы')
-
-        return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        if len(hashed_password) > 1024:
+            raise ValueError('Пароль слишком длинный')
+        return hashed_password
 
     @field_validator("email")
     def email_validate(cls, email):
@@ -104,7 +106,25 @@ class New_user(BaseModel):
             validate_email(email)
         except EmailNotValidError:
             raise ValueError("Неверный адрес электронной почты")
+        if len(email) > 100:
+            raise ValueError("Слишком длинный адрес электронной почты")
+        return email
 
+
+class Change_user_data(Login_data):
+    email: Optional[str]
+    phone_number: Optional[str] = Field(min_length=10, max_length=10)
+
+    @field_validator("email")
+    def email_validate(cls, email):
+        if email is None:
+            return email
+        try:
+            validate_email(email)
+        except EmailNotValidError:
+            raise ValueError("Неверный адрес электронной почты")
+        if len(email) > 100:
+            raise ValueError("Слишком длинный адрес электронной почты")
         return email
 
 
@@ -120,17 +140,17 @@ class User_JWT_Token(User):
 
 
 class New_car(BaseModel):
-    brand: str
-    model: str
-    city: str
-    mileage: int
+    brand: str = Field(max_length=50)
+    model: str = Field(max_length=50)
+    city: str = Field(max_length=50)
+    mileage: int = Field(ge=0)
     transmission: Transmission
     engine: Engine
     body: Body
-    release_year: int
+    release_year: int = Field(ge=0)
     drive: Drive
     cost: Decimal
-    volume: int
+    volume: int = Field(ge=0)
     description: str
     photos: List[str]
 

@@ -207,3 +207,33 @@ def login_user(login_data: schemas.Login_data) -> Optional[models.User_]:
     return found_user
 
 
+def verify_user(verify_data: schemas.Change_user_data, user_id: int) -> Optional[models.User_]:
+    found_user = session.query(models.User_).filter(and_(models.User_.id == user_id))
+    if found_user.count() == 0:
+        return None
+    found_user = found_user.one()
+    if not verify_data.verify_password(found_user.hashed_password):
+        return None
+    return found_user
+
+
+def change_user_data(user: models.User_, new_data: schemas.Change_user_data):
+    if new_data.email is not None:
+        if session.query(models.User_).filter(and_(models.User_.email == new_data.email)).count() > 0:
+            return {"successful": False, "msg": "Почта занята"}
+        user.email = new_data.email
+    if new_data.phone_number is not None:
+        if session.query(models.User_).filter(and_(models.User_.phone_number == new_data.phone_number)).count() > 0:
+            return {"successful": False, "msg": "Номер телефона занят"}
+        user.phone_number = new_data.phone_number
+
+    session.commit()
+    return {"successful": True, "user_data": schemas.User(id=user.id,
+                                                          name=user.name,
+                                                          surname=user.surname,
+                                                          email=user.email,
+                                                          phone_number=user.phone_number)}
+
+
+def set_like(car_id: int, user_id: int):
+    pass

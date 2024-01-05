@@ -34,8 +34,10 @@ async def upload_files(files: List[UploadFile]):
     folder_name = f"{id_owner}-{'+'.join(re_split('[ :]', str(datetime.now())))}"
     os_mkdir(f"server/server/static/{folder_name}")
     start_path = f"server/server/static/{folder_name}/"
+    i = 1
     for file in files:
-        path = start_path + f'{file.filename}'
+        path = start_path + f'{i}.jpg'
+        i += 1
         file_paths.append(path)
         with open(path, "wb+") as buffer:
             copyfileobj(file.file, buffer)
