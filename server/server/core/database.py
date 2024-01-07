@@ -27,7 +27,8 @@ def make_car_scheme(car: models.Car_):
         volume=car.volume,
         description=car.description,
         date_publish=car.date_publish,
-        photos=car.photos.split(";"))
+        photos=car.photos.split(";"),
+        id_owner=car.id_owner)
 
 
 def get_available_filter_for(column, params: dict) -> list:
@@ -241,7 +242,7 @@ def set_like(car_id: int, user_id: int):
         return {"successful": False, "msg": "Такой лайк уже есть"}
     if session.query(models.Car_).filter(and_(models.Car_.id == car_id)).count() == 0:
         return {"successful": False, "msg": "Такого авто нет"}
-    if session.query(models.User_).filter(and_(models.User_ .id == user_id)).count() == 0:
+    if session.query(models.User_).filter(and_(models.User_.id == user_id)).count() == 0:
         return {"successful": False, "msg": "Такого пользователя нет"}
 
     new_like = models.Like_(id_user=user_id,
@@ -254,11 +255,11 @@ def set_like(car_id: int, user_id: int):
 def get_user_likes(user_id: int, page_size: int, page: int) -> List[schemas.Car]:
     result = []
     offset = page_size * (page - 1)
-    for i in session.query(models.Like_).filter(and_(models.Like_.id_user == user_id)).\
+    for i in session.query(models.Like_).filter(and_(models.Like_.id_user == user_id)). \
             limit(page_size).offset(offset):
         found_car = get_car(i.id_car)
         if found_car is not None:
-            result.append(get_car(i.id_car))
+            result.append(found_car)
     return result
 
 
@@ -289,3 +290,84 @@ def delete_all_car_responses(car_id: int):
     for i in session.query(models.Response_).filter(and_(models.Response_.id_car == car_id)):
         session.delete(i)
     session.commit()
+
+
+def new_response(car_id: int, user_id: int, message: Optional[str]):
+    if session.query(models.User_).filter(and_(models.User_.id == user_id)).count() == 0:
+        return {"successful": False, "msg": "Такого пользователя нет"}
+    owner_id = session.query(models.Car_.id_owner).filter(and_(models.Car_.id == car_id))
+    if owner_id.count() == 0:
+        return {"successful": False, "msg": "Такого авто нет"}
+    owner_id = owner_id.one()[0]
+    found_response = session.query(models.Response_).filter(and_(models.Response_.id_car == car_id,
+                                                                 models.Response_.id_user == user_id,
+                                                                 models.Response_.id_owner == owner_id))
+    print(found_response)
+    if found_response.count() > 0:
+        return {"successful": False, "msg": "Такой отклик уже есть"}
+    if message is not None and len(message) == 0:
+        message = None
+    created_response = models.Response_(id_user=user_id,
+                                        id_car=car_id,
+                                        id_owner=owner_id,
+                                        message=message)
+    session.add(created_response)
+    session.commit()
+    return {"successful": True, "response": schemas.Response(id=created_response.id,
+                                                             user=get_user(user_id=user_id),
+                                                             car=get_car(car_id),
+                                                             message=message)}
+
+
+def get_all_responses(user_id: int, page_size: int, page: int):
+    if session.query(models.User_).filter(and_(models.User_.id == user_id)).count() == 0:
+        return {"successful": False, "msg": "Такого пользователя нет"}
+    result = []
+    offset = page_size * (page - 1)
+    for i in session.query(models.Response_).filter(and_(models.Response_.id_user == user_id)). \
+            limit(page_size).offset(offset):
+        found_car = get_car(i.id_car)
+        if found_car is not None:
+            result.append(schemas.Response_info(id=i.id,
+                                                car=found_car,
+                                                message=i.message,
+                                                is_claim=i.is_claim))
+    return {"successful": True, "cars": result}
+
+
+def get_all_responses_owner(user_id: int, page_size: int, page: int):
+    if session.query(models.User_).filter(and_(models.User_.id == user_id)).count() == 0:
+        return {"successful": False, "msg": "Такого пользователя нет"}
+    result = []
+    offset = page_size * (page - 1)
+    for i in session.query(models.Response_).filter(and_(models.Response_.id_owner == user_id)). \
+            limit(page_size).offset(offset):
+        found_car = get_car(i.id_car)
+        if found_car is not None:
+            result.append(schemas.Response_owner_info(id=i.id,
+                                                      car=found_car,
+                                                      message=i.message,
+                                                      user=get_user(i.id_user),
+                                                      is_claim=i.is_claim))
+    return {"successful": True, "cars": result}
+
+
+def claim_response(response_id: int, owner_id: int):
+    response = session.query(models.Response_).filter(and_(models.Response_.id == response_id))
+    if response.count() == 0:
+        return {"successful": False, "msg": "Такого отклика нет"}
+    response = response.one()
+    if response.id_owner != owner_id:
+        return {"successful": False, "msg": "Вы не владелец авто в этом отклике"}
+    response.is_claim = True
+    session.commit()
+    return {"successful": True}
+
+
+def is_claim_response(user_id: int, owner_id: int):
+    responses = session.query(models.Response_.is_claim).filter(and_(models.Response_.id_user == user_id,
+                                                                     models.Response_.id_owner == owner_id))
+    for i in responses:
+        if i:
+            return True
+    return False

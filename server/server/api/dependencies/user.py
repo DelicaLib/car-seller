@@ -1,8 +1,10 @@
 import requests
 import jwt
+from typing import Optional
 
 from server.server.api.models import schemas
 from server.server.core.config import JWT_KEY
+from server.server.core.database import is_claim_response
 
 
 def verify_recaptcha(recaptcha_response: str, secret_key: str, remote_ip: str) -> bool:
@@ -43,3 +45,12 @@ def decode_jwt(jwt_token: dict):
         return None
 
 
+def confidential_data_user(user_id: Optional[int], user: schemas.User):
+    if user_id is None:
+        delete_confidential_data(user)
+    elif user_id != user.id:
+        user_owner = is_claim_response(user_id, user.id)
+        owner_user = is_claim_response(user.id, user_id)
+        if not user_owner and not owner_user:
+            delete_confidential_data(user)
+    return user

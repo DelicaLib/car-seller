@@ -1,5 +1,3 @@
-import shutil
-
 from fastapi import Request, status, UploadFile, APIRouter
 from fastapi.responses import JSONResponse
 from typing import List
@@ -9,7 +7,7 @@ from pydantic import ValidationError
 import server.server.core.database as database
 import server.server.api.models.schemas as schemas
 from server.server.api.dependencies.car import is_correct_files, upload_files as do_upload_files
-from server.server.api.dependencies.user import decode_jwt
+from server.server.api.dependencies.user import decode_jwt, confidential_data_user
 
 router = APIRouter()
 
@@ -34,12 +32,22 @@ async def new_car(request: Request, new_car_data: schemas.New_car):
     return database.add_car(new_car_data, id_owner, new_car_data.photos)
 
 
-@router.get("/catalog/{car_id}", response_model=schemas.Car)
-async def get_car(car_id: int):
+@router.get("/catalog/{car_id}", response_model=schemas.Get_car_response)
+async def get_car(request: Request, car_id: int):
     car = database.get_car(car_id)
     if car is None:
         return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Объявление не найдено")
-    return car
+
+    owner = database.get_user(user_id=car.id_owner)
+    if owner is None:
+        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Пользователь не найден")
+
+    authorize_check_result = None
+    if "jwt_token" in request.cookies:
+        authorize_check_result = decode_jwt(json.loads(request.cookies["jwt_token"]))
+
+    owner = confidential_data_user(authorize_check_result, owner)
+    return schemas.Get_car_response(car=car, owner=owner)
 
 
 @router.delete("/", response_model=schemas.Car)

@@ -158,17 +158,38 @@ class New_car(BaseModel):
 class Car(New_car, Id):
     date_publish: datetime
     photos: List[str]
+    id_owner: int
+
+
+class Get_car_response(BaseModel):
+    car: Car
+    owner: User
+
+
+class Response_info(Id):
+    car: Car
+    message: Optional[str]
+    is_claim: bool
+
+
+class Response_owner_info(Response_info):
+    user: User
+
+
+class Responses_info(BaseModel):
+    responses_owner: List[Response_owner_info]
+    responses_user: List[Response_info]
 
 
 class New_Response_data(BaseModel):
     car_id: int
-    message: str
+    message: Optional[str]
 
 
 class Response(Id):
     user: User
     car: Car
-    message: str
+    message: Optional[str]
 
 
 class Filter_max_min(BaseModel):

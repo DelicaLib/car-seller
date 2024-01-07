@@ -9,7 +9,8 @@ from server.server.core.database import (get_user as database_get_user,
                                          new_user as database_new_user,
                                          login_user as database_login_user,
                                          verify_user as database_verify_user,
-                                         change_user_data as database_change_user_data)
+                                         change_user_data as database_change_user_data,
+                                         is_claim_response as database_is_claim_response)
 
 router = APIRouter()
 
@@ -28,7 +29,7 @@ async def login(request: Request, response: Response, login_data: schemas.Login_
     user_schema = schemas.User(id=found_user.id,
                                name=found_user.name,
                                surname=found_user.surname,
-                               email=found_user.surname,
+                               email=found_user.email,
                                phone_number=found_user.phone_number)
     jwt_token = user.generate_token(user_schema)
     response.set_cookie("jwt_token", json.dumps(jwt_token))
@@ -59,8 +60,8 @@ async def get_user(request: Request, user_id: int):
     authorize_check_result = None
     if "jwt_token" in request.cookies:
         authorize_check_result = user.decode_jwt(json.loads(request.cookies["jwt_token"]))
-    if authorize_check_result is None or authorize_check_result != found_user.id:
-        user.delete_confidential_data(found_user)
+
+    found_user = user.confidential_data_user(authorize_check_result, found_user)
     return found_user
 
 
