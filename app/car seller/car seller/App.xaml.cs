@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,9 +10,12 @@ namespace Car_Seller
         public App()
         {
             InitializeComponent();
+            var catalogPage = new CatalogPage();
+            var navigationPage = new NavigationPage(catalogPage);
 
-            MainPage = new MainPage();
+            MainPage = navigationPage;
         }
+
 
         protected override void OnStart()
         {
