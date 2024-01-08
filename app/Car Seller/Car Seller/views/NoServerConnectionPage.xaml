@@ -10,6 +10,10 @@
                 HorizontalOptions="Center"
                 Text="Отсутствует подключение к серверу"
                 VerticalOptions="Center" />
+            <Button
+                x:Name="retryButton"
+                Clicked="onRetryButtonClicked"
+                Text="Повторить" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

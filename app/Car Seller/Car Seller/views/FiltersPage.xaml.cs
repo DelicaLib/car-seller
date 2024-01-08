@@ -1,21 +1,19 @@
-﻿using Car_Seller.views;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Car_Seller.views
 {
-    public partial class CatalogPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class FiltersPage : ContentPage
     {
         private MyBasePage m_BasePage;
-        public CatalogPage()
+        public FiltersPage()
         {
             InitializeComponent();
             m_BasePage = new MyBasePage(this);
@@ -31,12 +29,6 @@ namespace Car_Seller.views
         {
             base.OnDisappearing();
             m_BasePage.OnDisappearing();
-        }
-
-        private async void OnFiltersClicked(object sender, EventArgs e)
-        {
-            var filtersPage = new FiltersPage();
-            await Navigation.PushAsync(filtersPage, true);
         }
     }
 }

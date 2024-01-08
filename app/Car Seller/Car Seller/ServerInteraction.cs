@@ -11,7 +11,7 @@ namespace Car_Seller
     {
         private static string HOST = "http://192.168.0.131";
         private static string PORT = "8000";
-        private static HttpClient client = new HttpClient{BaseAddress = new Uri(HOST + ":" + PORT), Timeout = TimeSpan.FromMilliseconds(100) };
+        private static HttpClient client = new HttpClient{BaseAddress = new Uri(HOST + ":" + PORT), Timeout = TimeSpan.FromMilliseconds(1000) };
         private static CancellationTokenSource cts = new CancellationTokenSource();
         public static async Task Ping()
         {

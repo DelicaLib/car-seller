@@ -1,8 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Car_Seller.App">
+<Application
+    x:Class="Car_Seller.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Application.Resources>
 
+        <ResourceDictionary>
+            <Color x:Key="AppBackgroundColor">#F2F2F2</Color>
+            <Color x:Key="UnselectedColor">#144E73</Color>
+            <Color x:Key="SelectedColor">#04ADBF</Color>
+            <Color x:Key="SecondaryColor">#518EA6</Color>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="black" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

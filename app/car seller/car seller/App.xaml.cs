@@ -10,10 +10,10 @@ namespace Car_Seller
         public App()
         {
             InitializeComponent();
-            var catalogPage = new CatalogPage();
-            var navigationPage = new NavigationPage(catalogPage);
+            var shellPage = new ShellPage();
+            var navigationPage = new NavigationPage(shellPage);
 
-            MainPage = navigationPage;
+            MainPage = shellPage;
         }
 
 

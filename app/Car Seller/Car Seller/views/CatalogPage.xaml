@@ -1,11 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="Car_Seller.CatalogPage"
+    x:Class="Car_Seller.views.CatalogPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Поиск">
     <StackLayout>
-
+        <StackLayout
+            Padding="20"
+            HeightRequest="70"
+            HorizontalOptions="Fill">
+            <Frame
+                Padding="10"
+                BackgroundColor="{StaticResource AppBackgroundColor}"
+                CornerRadius="15"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="Center">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFiltersClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                        <Image
+                            Margin="0,0,5,0"
+                            HeightRequest="20"
+                            Source="car.png" />
+                        <!--<BoxView WidthRequest="1" Color="black" />-->
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label
+                            FontAttributes="None"
+                            FontSize="19"
+                            Text="Настроить фильтры"
+                            TextDecorations="None" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                        <!--<BoxView WidthRequest="1" Color="black" />-->
+                        <Image HeightRequest="40" Source="filters.png" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
     </StackLayout>
+
 
 </ContentPage>
