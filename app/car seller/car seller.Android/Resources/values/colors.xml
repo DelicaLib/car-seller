@@ -3,5 +3,7 @@
     <color name="launcher_background">#F2F2F2</color>
     <color name="colorPrimary">#5A6273</color>
     <color name="colorPrimaryDark">#5A6273</color>
+    <color name="myRadioButtonColor">#04ADBF</color>
     <color name="colorAccent">#E7F2BD</color>
+	
 </resources>

@@ -13,6 +13,10 @@
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="black" />
             </Style>
+            <Style TargetType="RadioButton">
+                <Setter Property="TextColor" Value="{StaticResource SelectedColor}" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -14,6 +14,9 @@ class Transmission(Enum):
     mechanic = "механическая"
     automate = "автоматическая"
 
+    def __str__(self):
+        return str(self.value)
+
 
 class Engine(Enum):
     gas = "газовый"
@@ -21,11 +24,17 @@ class Engine(Enum):
     diesel = "дизельный"
     gasoline = "бензиновый"
 
+    def __str__(self):
+        return str(self.value)
+
 
 class Drive(Enum):
     back = "задний"
     front = "передний"
     full = "полный"
+
+    def __str__(self):
+        return str(self.value)
 
 
 class Body(Enum):
@@ -54,6 +63,9 @@ class Body(Enum):
     ut = "ют"
     van = "фургон"
     offroad = "внедорожник"
+
+    def __str__(self):
+        return str(self.value)
 
 
 class Id(BaseModel):
@@ -157,7 +169,6 @@ class New_car(BaseModel):
 
 class Car(New_car, Id):
     date_publish: datetime
-    photos: List[str]
     id_owner: int
 
 
@@ -290,13 +301,13 @@ class Filter(Filter_max_min):
         if self.model is not None:
             params["model"] = self.model
         if self.body is not None:
-            params["body"] = self.body
+            params["body"] = str(self.body)
         if self.transmission is not None:
-            params["transmission"] = self.transmission
+            params["transmission"] = str(self.transmission)
         if self.engine is not None:
-            params["engine"] = self.engine
+            params["engine"] = str(self.engine)
         if self.drive is not None:
-            params["drive"] = self.driv
+            params["drive"] = str(self.drive)
         return params
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Car_Seller.services;
+using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,9 +11,8 @@ namespace Car_Seller
         public App()
         {
             InitializeComponent();
+            DependencyService.Register<DataStore>();
             var shellPage = new ShellPage();
-            var navigationPage = new NavigationPage(shellPage);
-
             MainPage = shellPage;
         }
 

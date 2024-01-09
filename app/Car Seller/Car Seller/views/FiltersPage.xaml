@@ -3,6 +3,577 @@
     x:Class="Car_Seller.views.FiltersPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Выбор фильтров">
-    <StackLayout />
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    Title="Выбор фильтров"
+    Shell.TabBarIsVisible="False">
+
+
+    <RelativeLayout x:Name="RootLayout" VerticalOptions="FillAndExpand">
+        <ScrollView
+            Orientation="Vertical"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                   Property=Height}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Property=Width}">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCityClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Город" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="CityLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбран"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCityRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="CityCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    WidthRequest="50">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="Цена, ₽" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="CostLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбрана"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCostRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="CostCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="Год выпуска" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="ReleaseYearLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбран"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnReleaseYearRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="ReleaseYearCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBrandClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Марка" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="BrandLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбрана"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBrandRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="BrandCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnModelClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Модель" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="ModelLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Недоступна"
+                            TextColor="Gray" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnModelRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="ModelCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBodyClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Кузов" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="BodyLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбран"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBodyRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="BodyCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTransmissionClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Коробка передач" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="TransmissionLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбрана"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTransmissionRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="TransmissionCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnEngineClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Тип двигателя" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="EngineLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбран"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnEngineRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="EngineCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDriveClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Привод" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="DriveLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбран"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDriveRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="DriveCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="Пробег, км" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="MileageLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбран"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMileageRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="MileageCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+                <StackLayout
+                    x:Name="VolumeLayout"
+                    Padding="15,10,15,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="Мощность двигателя, л.с" TextColor="{StaticResource UnselectedColor}" />
+                        <Label
+                            x:Name="VolumeLabel"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Не выбрана"
+                            TextColor="{StaticResource SecondaryColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnVolumeRemove" />
+                        </StackLayout.GestureRecognizers>
+                        <Image
+                            x:Name="VolumeCancelImage"
+                            Margin="0,0,0,-10"
+                            HeightRequest="25"
+                            IsVisible="False"
+                            Source="cancel_icon.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <BoxView
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource UnselectedColor}"
+                    CornerRadius="100"
+                    HeightRequest="2"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.5" />
+
+            </StackLayout>
+        </ScrollView>
+        <StackLayout
+            x:Name="MenuBackgroundLayout"
+            BackgroundColor="Black"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="false"
+            Opacity="0.3"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                   Property=Height}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Property=Width}"
+            VerticalOptions="FillAndExpand">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="CloseAllMenu" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <ContentView
+            x:Name="TextSelectMenu"
+            HeightRequest="400"
+            IsVisible="false">
+            <RelativeLayout HorizontalOptions="FillAndExpand">
+
+                <pancake:PancakeView
+                    Padding="20,0,20,0"
+                    BackgroundColor="{StaticResource AppBackgroundColor}"
+                    CornerRadius="40,40,0,0">
+                    <StackLayout>
+                        <StackLayout
+                            Padding="0,15,0,15"
+                            Orientation="Horizontal"
+                            VerticalOptions="CenterAndExpand">
+                            <Label
+                                x:Name="TextSelectMenuHeader"
+                                FontSize="25"
+                                Text="Город"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="CloseAllMenu" />
+                                </StackLayout.GestureRecognizers>
+                                <Image HeightRequest="25" Source="close.png" />
+                            </StackLayout>
+                        </StackLayout>
+                        <ScrollView>
+                            <StackLayout x:Name="TextSelectStackLayout" RadioButtonGroup.GroupName="TextSelectMenu">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        FontSize="18"
+                                        Text="Не важно"
+                                        TextColor="{StaticResource SecondaryColor}" />
+                                    <RadioButton
+                                        x:Name="TextSelectMenuRadioNone"
+                                        CheckedChanged="RadioCheckedChanged"
+                                        HorizontalOptions="EndAndExpand"
+                                        Value="-1" />
+                                </StackLayout>
+                                <BoxView
+                                    Margin="0,5,0,5"
+                                    CornerRadius="100"
+                                    HeightRequest="2"
+                                    HorizontalOptions="FillAndExpand"
+                                    Opacity="0.5"
+                                    Color="{StaticResource UnselectedColor}" />
+                                <CollectionView x:Name="TextSelectMenuCollectionView" ItemsSource="{Binding availableFilters.City}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label
+                                                        FontSize="18"
+                                                        Text="{Binding Name}"
+                                                        TextColor="{StaticResource SecondaryColor}" />
+                                                    <RadioButton
+                                                        CheckedChanged="RadioCheckedChanged"
+                                                        GroupName="TextSelectMenu"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        IsChecked="{Binding IsChecked}"
+                                                        Value="{Binding Name}" />
+                                                </StackLayout>
+                                                <BoxView
+                                                    Margin="0,5,0,5"
+                                                    CornerRadius="100"
+                                                    HeightRequest="2"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Opacity="0.5"
+                                                    Color="{StaticResource UnselectedColor}" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </ScrollView>
+                    </StackLayout>
+                </pancake:PancakeView>
+                <ContentView
+                    HorizontalOptions="CenterAndExpand"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,
+                                                                      Constant=320}">
+                    <Button
+                        Margin="0,0,0,10"
+                        Padding="15,10,15,10"
+                        BackgroundColor="{StaticResource SecondaryColor}"
+                        Clicked="SubmitClicked"
+                        CornerRadius="20"
+                        FontSize="20"
+                        Text="Применить"
+                        TextColor="{StaticResource AppBackgroundColor}"
+                        VerticalOptions="End" />
+                </ContentView>
+            </RelativeLayout>
+
+        </ContentView>
+    </RelativeLayout>
+
+
 </ContentPage>

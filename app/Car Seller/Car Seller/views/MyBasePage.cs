@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -47,9 +48,14 @@ namespace Car_Seller.views
             }
             catch (HttpRequestException ex)
             {
-                var noServerConnectionPage = new NoServerConnectionPage();
-                await _page.Navigation.PushModalAsync(noServerConnectionPage);
+                await GoToNoServerConnectionPage();
             }
+        }
+
+        public async Task GoToNoServerConnectionPage()
+        {
+            var noServerConnectionPage = new NoServerConnectionPage();
+            await _page.Navigation.PushModalAsync(noServerConnectionPage);
         }
     }
 }

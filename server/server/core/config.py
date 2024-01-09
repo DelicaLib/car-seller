@@ -12,4 +12,4 @@ JWT_KEY = os.environ.get("JWT_KEY")
 PASSWORD_KEY = os.environ.get("PASSWORD_KEY")
 RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
 
-ECHO_DATABASE_LOG = True
+ECHO_DATABASE_LOG = False
