@@ -22,7 +22,7 @@ def get_likes(request: Request, page_size: int = 10, page: int = 1):
     return found_likes
 
 
-@router.get("/car/{car_id}")
+@router.get("/car/{car_id}", response_model=bool)
 def check_like(request: Request, car_id: int):
     id_user = None
     if "jwt_token" in request.cookies:

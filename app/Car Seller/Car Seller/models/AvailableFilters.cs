@@ -138,5 +138,6 @@ namespace Car_Seller.models
             }
 
         }
+        public AvailableFiltersForView() { }
     }
 }

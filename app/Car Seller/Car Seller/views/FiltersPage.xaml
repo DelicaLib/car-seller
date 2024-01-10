@@ -4,9 +4,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:range="clr-namespace:RangeSelection;assembly=RangeSelection"
     Title="Выбор фильтров"
     Shell.TabBarIsVisible="False">
-
+    <ContentPage.Resources>
+        <x:String x:Key="CustomValueLabeStringFormat">{0:F0}</x:String>
+    </ContentPage.Resources>
 
     <RelativeLayout x:Name="RootLayout" VerticalOptions="FillAndExpand">
         <ScrollView
@@ -64,6 +67,9 @@
                     Orientation="Horizontal"
                     WidthRequest="50">
                     <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCostClicked" />
+                        </StackLayout.GestureRecognizers>
                         <Label Text="Цена, ₽" TextColor="{StaticResource UnselectedColor}" />
                         <Label
                             x:Name="CostLabel"
@@ -101,6 +107,9 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnResealeYearClicked" />
+                        </StackLayout.GestureRecognizers>
                         <Label Text="Год выпуска" TextColor="{StaticResource UnselectedColor}" />
                         <Label
                             x:Name="ReleaseYearLabel"
@@ -385,6 +394,9 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMileageClicked" />
+                        </StackLayout.GestureRecognizers>
                         <Label Text="Пробег, км" TextColor="{StaticResource UnselectedColor}" />
                         <Label
                             x:Name="MileageLabel"
@@ -424,6 +436,9 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <StackLayout VerticalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnVolumeClicked" />
+                        </StackLayout.GestureRecognizers>
                         <Label Text="Мощность двигателя, л.с" TextColor="{StaticResource UnselectedColor}" />
                         <Label
                             x:Name="VolumeLabel"
@@ -559,6 +574,107 @@
                                                                           Property=Width}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,
                                                                       Constant=320}">
+                    <Button
+                        Margin="0,0,0,10"
+                        Padding="15,10,15,10"
+                        BackgroundColor="{StaticResource SecondaryColor}"
+                        Clicked="SubmitClicked"
+                        CornerRadius="20"
+                        FontSize="20"
+                        Text="Применить"
+                        TextColor="{StaticResource AppBackgroundColor}"
+                        VerticalOptions="End" />
+                </ContentView>
+            </RelativeLayout>
+
+        </ContentView>
+        <ContentView
+            x:Name="NumberSelectMenu"
+            HeightRequest="250"
+            IsVisible="false">
+            <RelativeLayout HorizontalOptions="FillAndExpand">
+                <StackLayout RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}">
+                    <pancake:PancakeView
+                        Padding="20,0,20,0"
+                        BackgroundColor="{StaticResource AppBackgroundColor}"
+                        CornerRadius="40,40,0,0"
+                        HorizontalOptions="FillAndExpand">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <StackLayout
+                                Padding="0,15,0,15"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="CenterAndExpand">
+                                <Label
+                                    x:Name="NumberSelectMenuHeader"
+                                    FontSize="25"
+                                    Text="Цена"
+                                    TextColor="{StaticResource UnselectedColor}" />
+                                <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="CloseAllMenu" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Image HeightRequest="25" Source="close.png" />
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout
+                                x:Name="NumberSelectStackLayout"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <StackLayout
+                                    HorizontalOptions="FillAndExpand"
+                                    Opacity="0.6"
+                                    Orientation="Horizontal">
+                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                        <Label Text="От" TextColor="{StaticResource UnselectedColor}" />
+                                        <Entry
+                                            x:Name="MinValueEntry"
+                                            Margin="-3,-20,0,0"
+                                            ClearButtonVisibility="WhileEditing"
+                                            Keyboard="Numeric"
+                                            Placeholder="0"
+                                            TextChanged="MinTextChanged"
+                                            TextColor="Black"
+                                            class="цена" />
+                                    </StackLayout>
+                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                        <Label Text="До" TextColor="{StaticResource UnselectedColor}" />
+                                        <Entry
+                                            x:Name="MaxValueEntry"
+                                            Margin="-3,-20,0,0"
+                                            ClearButtonVisibility="WhileEditing"
+                                            Keyboard="Numeric"
+                                            Placeholder="10000"
+                                            TextChanged="MaxTextChanged"
+                                            TextColor="Black"
+                                            class="цена" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Margin="0,0,0,100" HorizontalOptions="FillAndExpand">
+                                    <range:RangeSlider
+                                        x:Name="SelectRangeSlider"
+                                        LowerValue="0"
+                                        MaximumValue="10000"
+                                        MinimumValue="0"
+                                        PropertyChanged="RangeSliderChanged"
+                                        ThumbColor="{StaticResource SecondaryColor}"
+                                        ThumbSize="20"
+                                        TrackHighlightColor="{StaticResource SecondaryColor}"
+                                        UpperValue="10000"
+                                        ValueLabelStringFormat="{StaticResource CustomValueLabeStringFormat}" />
+                                </StackLayout>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </pancake:PancakeView>
+                </StackLayout>
+
+                <ContentView
+                    HorizontalOptions="CenterAndExpand"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,
+                                                                      Constant=190}">
                     <Button
                         Margin="0,0,0,10"
                         Padding="15,10,15,10"

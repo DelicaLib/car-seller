@@ -15,14 +15,17 @@ namespace Car_Seller.views
         {
             _page = page;
         }
-        public void OnAppearing()
+        public async Task<bool> OnAppearing()
         {
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
             if (_page.Navigation.ModalStack.Count == 0)
             {
-                Connectivity_ConnectivityChanged(null, null);
+                if (!await CheckInrenet())
+                {
+                    return false;
+                }
             }
-            CheckServerConnection();
+            return await CheckServerConnection();
 
         }
 
@@ -40,22 +43,38 @@ namespace Car_Seller.views
             }
         }
 
-        public async void CheckServerConnection()
+        public async Task<bool> CheckInrenet()
+        {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                var noInternetPage = new NoInternetPage();
+                await _page.Navigation.PushModalAsync(noInternetPage);
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> CheckServerConnection()
         {
             try
             {
                 await ServerInteraction.Ping();
+                return true;
             }
             catch (HttpRequestException ex)
             {
                 await GoToNoServerConnectionPage();
+                return false;
             }
         }
 
         public async Task GoToNoServerConnectionPage()
         {
-            var noServerConnectionPage = new NoServerConnectionPage();
-            await _page.Navigation.PushModalAsync(noServerConnectionPage);
+            if (_page.Navigation.ModalStack.Count == 0)
+            {
+                var noServerConnectionPage = new NoServerConnectionPage();
+                await _page.Navigation.PushModalAsync(noServerConnectionPage);
+            }
         }
     }
 }

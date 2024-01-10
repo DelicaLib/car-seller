@@ -1,6 +1,7 @@
 ﻿using Car_Seller.models;
 using Car_Seller.services;
 using Car_Seller.viewModels;
+using RangeSelection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,20 +21,30 @@ namespace Car_Seller.views
         private DataStore DataStore = DependencyService.Get<DataStore>();
         private MyBasePage m_BasePage;
         private FilterPageViewModel viewModel;
+        private string minText = string.Empty;
+        private string maxText = string.Empty;
+        private long minSelectValue = 0;
+        private long maxSelectValue = 10000;
 
         public FiltersPage()
         {
+            tempFilter = (Filter)DataStore.CurrentFilter.Clone();
             InitializeComponent();
             m_BasePage = new MyBasePage(this);
         }
         protected async override void OnAppearing()
         {
+            tempFilter = (Filter)DataStore.CurrentFilter.Clone();
             base.OnAppearing();
-            m_BasePage.OnAppearing();
+            if (!await m_BasePage.OnAppearing())
+            {
+                return;
+            }
             viewModel = new FilterPageViewModel();
             SetCurrentFilter();
             SetAvailableFiltersAsync();
             BindingContext = viewModel;
+            RootLayout.WidthRequest = Application.Current.MainPage.Width;
             RootLayout.Children.Add(
                 TextSelectMenu,
                 Constraint.Constant(0),
@@ -41,6 +52,13 @@ namespace Car_Seller.views
                 Constraint.RelativeToParent(parent => parent.Width),
                 Constraint.Constant(TextSelectMenu.HeightRequest));
             await TextSelectMenu.TranslateTo(0, TextSelectMenu.HeightRequest, 250, Easing.SinInOut);
+            RootLayout.Children.Add(
+                NumberSelectMenu,
+                Constraint.Constant(0),
+                Constraint.RelativeToParent(parent => parent.Height - NumberSelectMenu.HeightRequest),
+                Constraint.RelativeToParent(parent => parent.Width),
+                Constraint.Constant(NumberSelectMenu.HeightRequest));
+            await NumberSelectMenu.TranslateTo(0, NumberSelectMenu.HeightRequest, 250, Easing.SinInOut);
         }
 
         protected override void OnDisappearing()
@@ -80,6 +98,7 @@ namespace Car_Seller.views
                 ModelLabel.Text = "Недоступно";
                 ModelLabel.TextColor = Color.Gray;
                 ModelCancelImage.IsVisible = false;
+                DataStore.CurrentFilter.Model = null;
             }
             else
             {
@@ -145,6 +164,7 @@ namespace Car_Seller.views
             if (DataStore.CurrentFilter.MinVolume == -1 && DataStore.CurrentFilter.MaxVolume == -1)
             {
                 VolumeLabel.Text = "Не выбрана";
+                VolumeCancelImage.IsVisible = false;
             }
             else
             {
@@ -162,6 +182,7 @@ namespace Car_Seller.views
 
             if (DataStore.CurrentFilter.MinCost == -1 && DataStore.CurrentFilter.MaxCost == -1)
             {
+                CostCancelImage.IsVisible = false;
                 CostLabel.Text = "Не выбрана";
             }
             else
@@ -180,6 +201,7 @@ namespace Car_Seller.views
 
             if (DataStore.CurrentFilter.MinMileage == -1 && DataStore.CurrentFilter.MaxMileage == -1)
             {
+                MileageCancelImage.IsVisible = false;
                 MileageLabel.Text = "Не выбран";
             }
             else
@@ -198,6 +220,7 @@ namespace Car_Seller.views
 
             if (DataStore.CurrentFilter.MinReleaseYear == -1 && DataStore.CurrentFilter.MaxReleaseYear == -1)
             {
+                ReleaseYearCancelImage.IsVisible = false;
                 ReleaseYearLabel.Text = "Не выбран";
             }
             else
@@ -238,10 +261,39 @@ namespace Car_Seller.views
             {
                 await ToggleSelectMenu(TextSelectMenu);
             }
+            if (NumberSelectMenu.IsVisible)
+            {
+                await ToggleSelectMenu(NumberSelectMenu);
+            }
         }
 
         private void SubmitClicked(object sender, EventArgs e)
         {
+            if (((List<long>)tempFilter[MinValueEntry.@class[0]])[0] < minSelectValue && ((List<long>)tempFilter[MinValueEntry.@class[0]])[0] != -1)
+            {
+                DisplayAlert("Ошибка", $"Значение 'От' не должно быть меньше {minSelectValue}", "Ок");
+                return;
+            }
+            if (((List<long>)tempFilter[MinValueEntry.@class[0]])[0] > maxSelectValue && ((List<long>)tempFilter[MinValueEntry.@class[0]])[0] != -1)
+            {
+                DisplayAlert("Ошибка", $"Значение 'От' не должно быть больше {maxSelectValue}", "Ок");
+                return;
+            }
+            if (((List<long>)tempFilter[MinValueEntry.@class[0]])[1] > maxSelectValue && ((List<long>)tempFilter[MinValueEntry.@class[0]])[1] != -1)
+            {
+                DisplayAlert("Ошибка", $"Значение 'До' не должно быть больше {maxSelectValue}", "Ок");
+                return;
+            }
+            if (((List<long>)tempFilter[MinValueEntry.@class[0]])[1] < minSelectValue && ((List<long>)tempFilter[MinValueEntry.@class[0]])[1] != -1)
+            {
+                DisplayAlert("Ошибка", $"Значение 'До' не должно быть меньше {minSelectValue}", "Ок");
+                return;
+            }
+            if ((tempFilter.MinMileage > tempFilter.MaxMileage && tempFilter.MaxMileage != -1) || (tempFilter.MinCost > tempFilter.MaxCost && tempFilter.MaxCost != -1) || (tempFilter.MinReleaseYear > tempFilter.MaxReleaseYear && tempFilter.MaxReleaseYear != -1) || (tempFilter.MinVolume > tempFilter.MaxVolume && tempFilter.MaxVolume != -1))
+            {
+                DisplayAlert("Ошибка", "Значение 'До' не должно быть меньше значения 'от'", "Ок");
+                return;
+            }
             DataStore.CurrentFilter = tempFilter;
             SetAvailableFiltersAsync();
             SetCurrentFilter();
@@ -266,6 +318,109 @@ namespace Car_Seller.views
         }
 
 
+        private void MinTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length == 0)
+            {
+                minText = string.Empty;
+                SelectRangeSlider.LowerValue = minSelectValue;
+                return;
+            }
+            if (long.TryParse(e.NewTextValue, out long result) && result.ToString() == e.NewTextValue)
+            {
+                ((Entry)sender).Text = result.ToString();
+                tempFilter[MinValueEntry.@class[0]] = new List<long> { result, (maxText.Length == 0 ? -1: long.Parse(maxText))};
+                minText = result.ToString();
+                SelectRangeSlider.LowerValue = result;
+            }
+            else
+            {
+                ((Entry)sender).Text = minText;
+            }
+        }
+        private void MaxTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length == 0)
+            {
+                maxText = string.Empty;
+                SelectRangeSlider.UpperValue = maxSelectValue;
+                return;
+            }
+            if (long.TryParse(e.NewTextValue, out long result) && result.ToString() == e.NewTextValue)
+            {
+                ((Entry)sender).Text = result.ToString();
+                maxText = result.ToString();
+                tempFilter[MinValueEntry.@class[0]] = new List<long> {(minText.Length == 0 ? -1 : long.Parse(minText)), result };
+                SelectRangeSlider.UpperValue = result;
+            }
+            else
+            {
+                ((Entry)sender).Text = maxText;
+            }
+        }
+
+        private void RangeSliderChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            long minTextTmp = 0;
+            if (minText.Length != 0)
+            {
+                minTextTmp = long.Parse(minText);
+            }
+            long maxTextTmp = 50000000;
+            if (maxText.Length != 0)
+            {
+                maxTextTmp = long.Parse(maxText);
+            }
+            if (e.PropertyName == "LowerValue" && (long)((RangeSlider)sender).LowerValue != minTextTmp)
+            {
+                minText = ((long)((RangeSlider)sender).LowerValue).ToString();
+                MinValueEntry.Text = minText;
+            }
+            else if (e.PropertyName == "UpperValue" && (long)((RangeSlider)sender).UpperValue != maxTextTmp)
+            {
+                maxText = ((long)((RangeSlider)sender).UpperValue).ToString();
+                MaxValueEntry.Text = maxText;
+            }
+
+        }
+
+        private void SetNumberMenuValues(long minimum, long maximum, long currentMinimum, long currentMaximum)
+        {
+            minSelectValue = minimum;
+            maxSelectValue = maximum;
+            MinValueEntry.Placeholder = minimum.ToString();
+            MaxValueEntry.Placeholder = maximum.ToString();
+            SelectRangeSlider.MinimumValue = minimum;
+            SelectRangeSlider.MaximumValue = maximum;
+
+            if (currentMinimum == -1)
+            {
+                MinValueEntry.Text = string.Empty;
+                minText = string.Empty;
+                SelectRangeSlider.LowerValue = minimum;
+            }
+            else
+            {
+                MinValueEntry.Text = currentMinimum.ToString();
+                minText = currentMinimum.ToString();
+                SelectRangeSlider.LowerValue = currentMinimum;
+            }
+
+            if (currentMaximum == -1)
+            {
+                MaxValueEntry.Text = string.Empty;
+                maxText = string.Empty;
+                SelectRangeSlider.UpperValue = maximum;
+            }
+            else
+            {
+                MaxValueEntry.Text = currentMaximum.ToString();
+                maxText = currentMaximum.ToString();
+                SelectRangeSlider.UpperValue = currentMaximum;
+            }
+        }
+
+
         private async void OnCityClicked(object sender, EventArgs e)
         {
             tempFilter = (Filter)DataStore.CurrentFilter.Clone();
@@ -274,6 +429,47 @@ namespace Car_Seller.views
             TextSelectMenuRadioNone.IsChecked = DataStore.CurrentFilter.City == null;
             await ToggleSelectMenu(TextSelectMenu);
         }
+
+        private async void OnCostClicked(object sender, EventArgs e)
+        {
+            tempFilter = (Filter)DataStore.CurrentFilter.Clone();
+            NumberSelectMenuHeader.Text = "Цена, ₽";
+            MinValueEntry.@class = new List<string>() { "цена" };
+            MaxValueEntry.@class = new List<string>() { "цена" };
+            SetNumberMenuValues(0, 50000000, tempFilter.MinCost, tempFilter.MaxCost);
+            await ToggleSelectMenu(NumberSelectMenu);
+        }
+
+        private async void OnMileageClicked(object sender, EventArgs e)
+        {
+            tempFilter = (Filter)DataStore.CurrentFilter.Clone();
+            NumberSelectMenuHeader.Text = "Пробег, км";
+            MinValueEntry.@class = new List<string>() { "пробег" };
+            MaxValueEntry.@class = new List<string>() { "пробег" };
+            SetNumberMenuValues(0, 500000, tempFilter.MinMileage, tempFilter.MaxMileage);
+            await ToggleSelectMenu(NumberSelectMenu);
+        }
+
+        private async void OnVolumeClicked(object sender, EventArgs e)
+        {
+            tempFilter = (Filter)DataStore.CurrentFilter.Clone();
+            NumberSelectMenuHeader.Text = "Мощность двигателя, л.с";
+            MinValueEntry.@class = new List<string>() { "мощность" };
+            MaxValueEntry.@class = new List<string>() { "мощность" };
+            SetNumberMenuValues(10, 1000, tempFilter.MinVolume, tempFilter.MaxVolume);
+            await ToggleSelectMenu(NumberSelectMenu);
+        }
+
+        private async void OnResealeYearClicked(object sender, EventArgs e)
+        {
+            tempFilter = (Filter)DataStore.CurrentFilter.Clone();
+            NumberSelectMenuHeader.Text = "Год выпуска";
+            MinValueEntry.@class = new List<string>() { "год" };
+            MaxValueEntry.@class = new List<string>() { "год" };
+            SetNumberMenuValues(0, 2024, tempFilter.MinReleaseYear, tempFilter.MaxReleaseYear);
+            await ToggleSelectMenu(NumberSelectMenu);
+        }
+
         private async void OnBrandClicked(object sender, EventArgs e)
         {
             tempFilter = (Filter)DataStore.CurrentFilter.Clone();
@@ -291,6 +487,7 @@ namespace Car_Seller.views
             }
             TextSelectMenuHeader.Text = "Модель";
             TextSelectMenuCollectionView.ItemsSource = viewModel.availableFilters.Model;
+            TextSelectMenuRadioNone.IsChecked = DataStore.CurrentFilter.Model == null;
             await ToggleSelectMenu(TextSelectMenu);
         }
         private async void OnBodyClicked(object sender, EventArgs e)
@@ -397,5 +594,7 @@ namespace Car_Seller.views
             SetCurrentFilter();
             SetAvailableFiltersAsync();
         }
+
+        
     }
 }

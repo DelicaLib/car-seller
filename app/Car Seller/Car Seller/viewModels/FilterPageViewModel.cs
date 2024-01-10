@@ -10,6 +10,11 @@ namespace Car_Seller.viewModels
     {
         public AvailableFiltersForView availableFilters { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public FilterPageViewModel() 
+        {
+            availableFilters = new AvailableFiltersForView();
+        }
         
     }
 }

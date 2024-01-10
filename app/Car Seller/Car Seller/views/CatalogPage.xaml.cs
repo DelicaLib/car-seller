@@ -1,4 +1,7 @@
-﻿using Car_Seller.views;
+﻿using Car_Seller.services;
+using Car_Seller.viewModels;
+using Car_Seller.views;
+using IntelliAbb.Xamarin.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,15 +18,23 @@ namespace Car_Seller.views
     public partial class CatalogPage : ContentPage
     {
         private MyBasePage m_BasePage;
+        private DataStore dataStore = DependencyService.Get<DataStore>();
+        private CatalogPageViewModel viewModel;
         public CatalogPage()
         {
-            InitializeComponent();
+            viewModel = new CatalogPageViewModel(dataStore, m_BasePage);
             m_BasePage = new MyBasePage(this);
+            InitializeComponent();
         }
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
+            if (!await m_BasePage.OnAppearing())
+            {
+                return;
+            }
+            await viewModel.GenerateCars();
             base.OnAppearing();
-            m_BasePage.OnAppearing();
+            BindingContext = viewModel;
 
         }
 
@@ -37,6 +48,36 @@ namespace Car_Seller.views
         {
             var filtersPage = new FiltersPage();
             await Navigation.PushAsync(filtersPage, true);
+        }
+
+        private async void IsLikedChanged(object sender, TappedEventArgs e)
+        {
+            if ((bool)e.Parameter)
+            {
+                int carId = int.Parse(((Checkbox)sender).ClassId);
+                if (!(await ServerInteraction.HasJWTAsync()))
+                {
+                    ((Checkbox)sender).IsChecked = false;
+                    await Shell.Current.GoToAsync("LoginPage");
+                    return;
+                }
+            }
+        }
+
+        private async void ResponseClicked(object sender, EventArgs e)
+        {
+            int carId = int.Parse(((Button)sender).ClassId);
+            if (!(await ServerInteraction.HasJWTAsync()))
+            {
+                await Shell.Current.GoToAsync("LoginPage");
+                return;
+            }
+        }
+
+        private async void OnCarClicked(object sender, EventArgs e)
+        {
+            int carId = int.Parse(((RelativeLayout)sender).ClassId);
+            await Shell.Current.GoToAsync("CarPage");
         }
     }
 }

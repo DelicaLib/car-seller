@@ -8,14 +8,14 @@ namespace Car_Seller.models
     
     public class Filter : CarProperties , ICloneable
     {
-        public int MinVolume { get; set; }
-        public int MaxVolume { get; set; }
+        public long MinVolume { get; set; }
+        public long MaxVolume { get; set; }
         public long MinCost { get; set;}
         public long MaxCost { get; set;}
-        public int MinMileage { get; set; }
-        public int MaxMileage { get; set; }
-        public int MinReleaseYear { get; set; }
-        public int MaxReleaseYear { get; set; }
+        public long MinMileage { get; set; }
+        public long MaxMileage { get; set; }
+        public long MinReleaseYear { get; set; }
+        public long MaxReleaseYear { get; set; }
 
 
         private object GetValue(string s)
@@ -49,9 +49,9 @@ namespace Car_Seller.models
             {
                 return Drive;
             }
-            if (s == "мощность двигателя")
+            if (s == "мощность")
             {
-                return new List<int>() { MinVolume, MaxVolume };
+                return new List<long>() { MinVolume, MaxVolume };
             }
             if (s == "цена")
             {
@@ -61,7 +61,7 @@ namespace Car_Seller.models
             {
                 return new List<long>() { MinMileage, MaxMileage };
             }
-            if (s == "год выпуска")
+            if (s == "год")
             {
                 return new List<long>() { MinReleaseYear, MaxReleaseYear };
             }
@@ -132,10 +132,10 @@ namespace Car_Seller.models
             {
                 Drive = ((string)value).ToLower();
             }
-            if (s == "мощность двигателя")
+            if (s == "мощность")
             {
-                MinVolume = ((List<int>)value)[0];
-                MaxVolume = ((List<int>)value)[1];
+                MinVolume = ((List<long>)value)[0];
+                MaxVolume = ((List<long>)value)[1];
             }
             if (s == "цена")
             {
@@ -144,13 +144,13 @@ namespace Car_Seller.models
             }
             if (s == "пробег")
             {
-                MinMileage = ((List<int>)value)[0];
-                MaxMileage = ((List<int>)value)[1];
+                MinMileage = ((List<long>)value)[0];
+                MaxMileage = ((List<long>)value)[1];
             }
-            if (s == "год выпуска")
+            if (s == "год")
             {
-                MinReleaseYear = ((List<int>)value)[0];
-                MaxReleaseYear = ((List<int>)value)[1];
+                MinReleaseYear = ((List<long>)value)[0];
+                MaxReleaseYear = ((List<long>)value)[1];
             }
         }
         public object this[string s]

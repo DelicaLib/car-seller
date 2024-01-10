@@ -3,6 +3,7 @@
     x:Class="Car_Seller.views.CatalogPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls"
     Title="Поиск">
     <StackLayout>
         <StackLayout
@@ -27,7 +28,6 @@
                             Margin="0,0,5,0"
                             HeightRequest="20"
                             Source="car.png" />
-                        <!--<BoxView WidthRequest="1" Color="black" />-->
                     </StackLayout>
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <Label
@@ -37,12 +37,191 @@
                             TextDecorations="None" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                        <!--<BoxView WidthRequest="1" Color="black" />-->
                         <Image HeightRequest="40" Source="filters.png" />
                     </StackLayout>
                 </StackLayout>
             </Frame>
         </StackLayout>
+        <RelativeLayout Padding="20" HorizontalOptions="FillAndExpand" />
+        <CollectionView ItemsSource="{Binding cars}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <RelativeLayout Padding="20" ClassId="{Binding car.Id}">
+                        <RelativeLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCarClicked" />
+                        </RelativeLayout.GestureRecognizers>
+                        <Frame
+                            Padding="0,10,0,5"
+                            BackgroundColor="{StaticResource AppBackgroundColor}"
+                            CornerRadius="30"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand">
+                            <StackLayout>
+
+                                <CollectionView
+                                    HeightRequest="200"
+                                    HorizontalScrollBarVisibility="Always"
+                                    ItemsSource="{Binding car.Photos}"
+                                    VerticalScrollBarVisibility="Never">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                                <Image
+                                                    Aspect="AspectFill"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="FillAndExpand">
+                                                    <Image.Source>
+                                                        <UriImageSource Uri="{Binding .}" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                <StackLayout Padding="10">
+
+                                    <Frame
+                                        Padding="4,0,4,0"
+                                        BackgroundColor="DimGray"
+                                        CornerRadius="10"
+                                        HorizontalOptions="StartAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                Padding="0"
+                                                FontSize="35"
+                                                Text="{Binding car.Cost}"
+                                                TextColor="White" />
+                                            <Label
+                                                Padding="0"
+                                                FontSize="35"
+                                                Text="₽"
+                                                TextColor="White" />
+                                        </StackLayout>
+                                    </Frame>
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontSize="13"
+                                                Text="{Binding car.Mileage}"
+                                                TextColor="Gray" />
+                                            <Label
+                                                Margin="-4,0,0,0"
+                                                FontSize="13"
+                                                Text="км"
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="13"
+                                                Text="|"
+                                                TextColor="Gray" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontSize="13"
+                                                Text="{Binding car.Volume}"
+                                                TextColor="Gray" />
+                                            <Label
+                                                Margin="-4,0,0,0"
+                                                FontSize="13"
+                                                Text="л.с"
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="13"
+                                                Text="|"
+                                                TextColor="Gray" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontSize="13"
+                                                Text="{Binding car.Engine}"
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="13"
+                                                Text="|"
+                                                TextColor="Gray" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontSize="10"
+                                                Text="{Binding car.Transmission}"
+                                                TextColor="Gray" />
+                                            <Label
+                                                FontSize="13"
+                                                Text="|"
+                                                TextColor="Gray" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontSize="16"
+                                                Text="{Binding car.Brand}"
+                                                TextColor="Black" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontSize="16"
+                                                Text="{Binding car.Model}"
+                                                TextColor="Black" />
+                                            <Label
+                                                Margin="-5,0,0,0"
+                                                FontSize="16"
+                                                Text=", "
+                                                TextColor="Black" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                FontSize="16"
+                                                Text="{Binding car.ReleaseYear}"
+                                                TextColor="Black" />
+                                            <Label
+                                                Margin="-4,0,0,0"
+                                                FontSize="16"
+                                                Text="год"
+                                                TextColor="Gray" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout HorizontalOptions="StartAndExpand">
+                                    <Button
+                                        Margin="0,0,0,10"
+                                        Padding="15,10,15,10"
+                                        BackgroundColor="{StaticResource SecondaryColor}"
+                                        ClassId="{Binding car.Id}"
+                                        Clicked="ResponseClicked"
+                                        CornerRadius="20"
+                                        FontSize="20"
+                                        Text="Откликнуться"
+                                        TextColor="{StaticResource AppBackgroundColor}"
+                                        VerticalOptions="End" />
+                                </StackLayout>
+                            </StackLayout>
+
+                        </Frame>
+                        <ContentView
+                            HeightRequest="30"
+                            HorizontalOptions="EndAndExpand"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=Constant,
+                                                                              Constant=10}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,
+                                                                              Constant=10}"
+                            WidthRequest="30">
+                            <ia:Checkbox
+                                CheckColor="White"
+                                ClassId="{Binding car.Id}"
+                                FillColor="HotPink"
+                                IsChecked="{Binding IsLiked}"
+                                IsCheckedChanged="IsLikedChanged"
+                                OutlineColor="HotPink"
+                                Shape="Rectangle" />
+                        </ContentView>
+
+                    </RelativeLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
 
 

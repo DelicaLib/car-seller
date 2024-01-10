@@ -1,4 +1,5 @@
 ﻿using Car_Seller.models;
+using Car_Seller.services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,12 @@ namespace Car_Seller
         private static string PORT = "8000";
         private static HttpClient client = new HttpClient{BaseAddress = new Uri(HOST + ":" + PORT), Timeout = TimeSpan.FromMilliseconds(1000) };
         private static CancellationTokenSource cts = new CancellationTokenSource();
+        private static CookieDB cookieDB = App.CookieDBObj;
+        
+        public static string GetURL()
+        {
+            return HOST + ":" + PORT + "/";
+        }
         public static async Task Ping()
         {
 
@@ -29,6 +36,7 @@ namespace Car_Seller
                 {
                     throw new HttpRequestException($"Неудачный HTTP-статус: {response.StatusCode}");
                 }
+                return;
             }
             catch (SocketException ex)
             {
@@ -53,6 +61,7 @@ namespace Car_Seller
             {
                 throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
             }
+            return;
         }
     
         public static async Task<AvailableFilters> GetAvailableFilters(Filter filter)
@@ -87,12 +96,104 @@ namespace Car_Seller
             }
             catch (OperationCanceledException ex)
             {
-                return new AvailableFilters();
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
             }
             catch (Exception ex)
             {
                 throw new HttpRequestException("Ошибка соединения с сервером");
             }
+        }
+    
+        public static async Task<List<Car>> GetCarsAsync(Filter filter, int pageSize, int page)
+        {
+            string urlPatametrs = filter.GetUrlParams() + $"&page_size={pageSize}&page={page}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync("/car/catalog?" + urlPatametrs, cts.Token);
+                string content = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new WebException(content, (WebExceptionStatus)422);
+                }
+                List<Dictionary<string, object>> carsRaw = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(content);
+
+                List<Car> cars = new List<Car>();
+                foreach (var item in carsRaw)
+                {
+                    cars.Add(new Car(item));
+                }
+                return cars;
+
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (ex.CancellationToken == cts.Token)
+                {
+                    return new List<Car>();
+                }
+                else
+                {
+                    throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+                }
+            }
+            catch (OperationCanceledException ex)
+            {
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+            }
+            catch (Exception ex)
+            {
+                throw new HttpRequestException("Ошибка соединения с сервером");
+            }
+        }
+    
+        public static async Task<bool> CarIsLiked(int CarId)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"/car/catalog/{CarId}", cts.Token);
+                string content = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new WebException(content, (WebExceptionStatus)422);
+                }
+                object tmp = JsonConvert.DeserializeObject<object>(content);
+                bool ans = tmp.ToString() == "true";
+                return ans;
+
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (ex.CancellationToken == cts.Token)
+                {
+                    return false;
+                }
+                else
+                {
+                    throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+                }
+            }
+            catch (OperationCanceledException ex)
+            {
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+            }
+            catch (Exception ex)
+            {
+                throw new HttpRequestException("Ошибка соединения с сервером");
+            }
+        }
+
+        public static async Task<bool> HasJWTAsync()
+        {
+            int jwtId = await cookieDB.GetJWTAsync();
+            return jwtId != -1;
         }
     }
 }
