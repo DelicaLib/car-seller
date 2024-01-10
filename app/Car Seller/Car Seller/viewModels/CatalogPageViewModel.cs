@@ -27,21 +27,26 @@ namespace Car_Seller.viewModels
 
         }
 
-        public async Task FindCars()
+        public async Task<bool> FindCars()
         {
             try
             {
                 foundCars = await ServerInteraction.GetCarsAsync(dataStore.CurrentFilter, PageSize, Page);
+                return true;
             }
             catch (HttpRequestException ex)
             {
                 await m_basePage.GoToNoServerConnectionPage();
+                return false;
             }
         }
 
         public async Task<bool> GenerateCars()
         {
-            await FindCars();
+            if (!await FindCars())
+            {
+                return false;
+            }
             cars = new List<Car.CarForView>();
             foreach (var car in foundCars)
             {

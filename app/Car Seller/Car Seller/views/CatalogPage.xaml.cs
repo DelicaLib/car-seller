@@ -25,8 +25,8 @@ namespace Car_Seller.views
         private Filter oldFilter;
         public CatalogPage()
         {
-            viewModel = new CatalogPageViewModel(dataStore, m_BasePage);
             m_BasePage = new MyBasePage(this);
+            viewModel = new CatalogPageViewModel(dataStore, m_BasePage);
             oldFilter = (Filter)dataStore.CurrentFilter.Clone();
             InitializeComponent();
         }
@@ -159,7 +159,7 @@ namespace Car_Seller.views
         private async void OnCarClicked(object sender, EventArgs e)
         {
             int carId = int.Parse(((RelativeLayout)sender).ClassId);
-            await Shell.Current.GoToAsync("CarPage");
+            await Navigation.PushAsync(new CarPage(carId));
         }
 
         private async void NextClicked(object sender, EventArgs e)
@@ -167,6 +167,7 @@ namespace Car_Seller.views
             viewModel.Page++;
             if (!await viewModel.GenerateCars())
             {
+                viewModel.Page--;
                 return;
             }
             RootCollectionView.ItemsSource = viewModel.cars;
@@ -181,6 +182,7 @@ namespace Car_Seller.views
             viewModel.Page--;
             if (!await viewModel.GenerateCars())
             {
+                viewModel.Page++;
                 return;
             }
             RootCollectionView.ItemsSource = viewModel.cars;
@@ -188,6 +190,7 @@ namespace Car_Seller.views
         }
         private async void GoToFirstClicked(object sender, EventArgs e)
         {
+            int tmp = viewModel.Page;
             if (viewModel.Page == 1)
             {
                 return;
@@ -195,6 +198,7 @@ namespace Car_Seller.views
             viewModel.Page = 1;
             if (!await viewModel.GenerateCars())
             {
+                viewModel.Page = tmp;
                 return;
             }
             RootCollectionView.ItemsSource = viewModel.cars;

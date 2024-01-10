@@ -65,6 +65,19 @@ async def get_user(request: Request, user_id: int):
     return found_user
 
 
+@router.get("/me/", response_model=schemas.User)
+async def get_user_me(request: Request):
+    id_user = None
+    if "jwt_token" in request.cookies:
+        id_user = user.decode_jwt(json.loads(request.cookies["jwt_token"]))
+    if id_user is None:
+        return JSONResponse(status_code=status.HTTP_401_UNAUTHORIZED, content="Вы не авторизованы")
+    found_user = database_get_user(user_id=id_user)
+    if found_user is None:
+        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Пользователь не найден")
+    return found_user
+
+
 @router.post("/logout")
 async def logout():
     response = JSONResponse(status_code=status.HTTP_200_OK, content="Вы вышли из аккаунта")

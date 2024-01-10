@@ -11,18 +11,15 @@ using Xamarin.Forms.Xaml;
 
 namespace Car_Seller.views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CarPage : ContentPage
-    {
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class ProfilePage : ContentPage
+	{
         private MyBasePage m_BasePage;
-        private int CarId;
-        public CarPage(int carId)
-        {
-            CarId = carId;
+        public ProfilePage ()
+		{
             m_BasePage = new MyBasePage(this);
-            InitializeComponent();
-        }
-
+            InitializeComponent ();
+		}
         protected override async void OnAppearing()
         {
             if (!await m_BasePage.OnAppearing())
@@ -30,6 +27,7 @@ namespace Car_Seller.views
                 return;
             }
             base.OnAppearing();
+
         }
 
         protected override void OnDisappearing()
