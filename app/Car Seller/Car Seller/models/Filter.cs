@@ -229,5 +229,30 @@ namespace Car_Seller.models
         {
             return this.MemberwiseClone();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Filter test = obj as Filter;
+            return 
+                City == test.City && 
+                Brand == test.Brand && 
+                Model == test.Model && 
+                Body == test.Body && 
+                Transmission == test.Transmission && 
+                Engine == test.Engine && 
+                Drive == test.Drive &&
+                MinMileage == test.MinMileage && 
+                MaxMileage == test.MaxMileage && 
+                MinCost == test.MinCost && 
+                MaxCost == test.MaxCost && 
+                MinReleaseYear == test.MinReleaseYear &&
+                MaxReleaseYear == test.MaxReleaseYear && 
+                MinVolume == test.MinVolume && 
+                MaxVolume == test.MaxVolume;
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Car_Seller.viewModels
             }
         }
 
-        public async Task GenerateCars()
+        public async Task<bool> GenerateCars()
         {
             await FindCars();
             cars = new List<Car.CarForView>();
@@ -53,10 +53,21 @@ namespace Car_Seller.viewModels
                 catch (HttpRequestException ex)
                 {
                     await m_basePage.GoToNoServerConnectionPage();
+                    return false;
                 }
                 cars.Add(new Car.CarForView(car, isLiked));
             }
+            return true;
         }
 
+        public List<Car.CarForView> GetCopy()
+        {
+            List<Car.CarForView> result = new List<Car.CarForView>();
+            foreach (var car in cars)
+            {
+                result.Add(new Car.CarForView(car.car, car.IsLiked));
+            }
+            return result;
+        }
     }
 }

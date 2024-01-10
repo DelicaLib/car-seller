@@ -29,7 +29,7 @@ namespace Car_Seller.models
             StringBuilder str = new StringBuilder();
             for (int i = Cost.Length - 1; i >= 0; i--)
             {
-                if (Cost.Length - 1 - i != 0 && i != 0 && (Cost.Length - 1 - i) % 3 == 0)
+                if (Cost.Length - 1 - i != 0 && (Cost.Length - 1 - i) % 3 == 0)
                 {
                     str.Append(" ");
                 }

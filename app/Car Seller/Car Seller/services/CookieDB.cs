@@ -21,41 +21,47 @@ namespace Car_Seller.services
 
         }
 
-        public async Task<int> GetJWTAsync() 
+        public async Task<MyCookie> GetCookieAsync()
+        {
+            var tmp = await _connection.Table<MyCookie>().ToListAsync();
+
+            if (tmp.Count == 0)
+            {
+                return null;
+            }
+            MyCookie cookie = tmp[0];
+            if (cookie.Cookie.Length == 0)
+            {
+                return null;
+            }
+
+            return cookie;
+        }
+
+        public async Task<string> GetJWTAsync() 
         {
             var tmp = await _connection.Table<MyCookie>().ToListAsync();
 
             if (tmp.Count == 0) 
             {
-                return -1;
+                return "";
             }
             MyCookie cookie = tmp[0];
             if (cookie.Cookie.Length == 0) 
             {
-                return -1;
+                return "";
             }
-            try
-            {
-                Dictionary<string, string> result = JsonConvert.DeserializeObject<Dictionary<string, string>>(cookie.Cookie);
-                if (result.TryGetValue("JWT_token", out string jwt))
-                {
-                    return cookie.Id;
-                }
-                return -1;
-            }
-            catch (Exception)
-            {
-
-                return -1;
-            }
+            
+            return cookie.Cookie;
+            
         }
     
         public async Task SaveJWTAsync(string cookie)
         {
-            int currentCookieId = await GetJWTAsync();
-            if (currentCookieId != -1)
+            MyCookie currentCookie = await GetCookieAsync();
+            if (currentCookie != null)
             {
-                await _connection.DeleteAsync<MyCookie>(currentCookieId);
+                await _connection.DeleteAsync<MyCookie>(currentCookie.Id);
             }
             MyCookie newCokie = new MyCookie();
             newCokie.Cookie = cookie;

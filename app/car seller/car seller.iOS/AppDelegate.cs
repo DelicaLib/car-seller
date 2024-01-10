@@ -25,6 +25,8 @@ namespace Car_Seller.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            UIDevice.CurrentDevice.SetValueForKey(NSNumber.FromNInt((int)UIInterfaceOrientationMask.Portrait), new NSString("orientation"));
+
             return base.FinishedLaunching(app, options);
         }
     }
