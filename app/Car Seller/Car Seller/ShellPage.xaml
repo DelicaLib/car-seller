@@ -29,10 +29,12 @@
         <ShellContent
             Title="Поиск"
             ContentTemplate="{DataTemplate local:CatalogPage}"
-            Icon="search.png" />
+            Icon="search.png"
+            Route="CatalogPage" />
         <ShellContent
-            Title="Поиск"
-            ContentTemplate="{DataTemplate local:CatalogPage}"
-            Icon="search.png" />
+            Title="Личный кабинет"
+            ContentTemplate="{DataTemplate local:ProfilePage}"
+            Icon="profile.png"
+            Route="ProfilePage" />
     </TabBar>
 </Shell>

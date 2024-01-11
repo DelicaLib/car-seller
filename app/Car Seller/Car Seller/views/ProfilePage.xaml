@@ -1,12 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Car_Seller.views.ProfilePage">
+<ContentPage
+    x:Class="Car_Seller.views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Личный кабинет">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout
+            Padding="15"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    x:Name="SurnameLabel"
+                    FontSize="30"
+                    Text="Фамилия"
+                    TextColor="{StaticResource SecondaryColor}" />
+                <Label
+                    x:Name="NameLabel"
+                    FontSize="30"
+                    Text="Имя"
+                    TextColor="{StaticResource SecondaryColor}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    FontSize="20"
+                    Text="Почта:"
+                    TextColor="Gray" />
+                <Label
+                    x:Name="EmailLabel"
+                    FontSize="20"
+                    Text="email@mail.ru"
+                    TextColor="Gray" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    FontSize="20"
+                    Text="Телефон:"
+                    TextColor="Gray" />
+                <Label
+                    x:Name="PhoneLabel"
+                    FontSize="20"
+                    Text="+7(999)999-99-99"
+                    TextColor="Gray" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+
+                <Button
+                    Margin="0,0,0,10"
+                    Padding="15,10,15,10"
+                    BackgroundColor="{StaticResource SecondaryColor}"
+                    Clicked="LogoutClicked"
+                    CornerRadius="20"
+                    FontSize="18"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Выйти"
+                    TextColor="{StaticResource AppBackgroundColor}"
+                    VerticalOptions="End" />
+                <Button
+                    Margin="0,0,0,10"
+                    Padding="15,10,15,10"
+                    BackgroundColor="{StaticResource SecondaryColor}"
+                    Clicked="ChangeClicked"
+                    CornerRadius="20"
+                    FontSize="18"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Изменить профиль"
+                    TextColor="{StaticResource AppBackgroundColor}"
+                    VerticalOptions="End" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

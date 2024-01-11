@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Car_Seller.views.UserChangeDataPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Изменить профиль">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+                <Frame
+                    BackgroundColor="{StaticResource AppBackgroundColor}"
+                    CornerRadius="20"
+                    WidthRequest="320">
+                    <StackLayout>
+                        <Label
+                            x:Name="ErrorLabel"
+                            IsVisible="false"
+                            Text="Неверный пароль"
+                            TextColor="Red" />
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Электронная почта"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="LoginEnrty"
+                                Margin="-3,-10,0,0"
+                                Placeholder="Email"
+                                TextChanged="LoginEnrtyChanged"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Label
+                                x:Name="EmailErrorLabel"
+                                IsVisible="false"
+                                Text="Почта введена неправильно"
+                                TextColor="Red" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Номер телефона в формате (9889887766)"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="PhoneEnrty"
+                                Margin="-3,-10,0,0"
+                                Keyboard="Numeric"
+                                Placeholder="Номер телефона"
+                                TextChanged="PhoneEnrtyChanged"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Label
+                                x:Name="PhoneErrorLabel"
+                                IsVisible="false"
+                                Text="Неверный формат телефона"
+                                TextColor="Red" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Пароль"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="PasswordEnrty"
+                                Margin="-3,-10,0,0"
+                                IsPassword="True"
+                                Placeholder="Пароль"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <Button
+                            x:Name="ChangeButton"
+                            Padding="15,10,15,10"
+                            BackgroundColor="{StaticResource SecondaryColor}"
+                            Clicked="ChangeButtonClicked"
+                            CornerRadius="20"
+                            FontSize="20"
+                            Text="Изменить"
+                            TextColor="{StaticResource AppBackgroundColor}" />
+                        <Label
+                            x:Name="RecaptchaErrorLabel"
+                            IsVisible="false"
+                            Text="Вы не прошли капчу"
+                            TextColor="Red" />
+                        <WebView x:Name="RecaptchaWebView" HeightRequest="500" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

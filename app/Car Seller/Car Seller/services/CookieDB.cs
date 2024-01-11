@@ -67,5 +67,14 @@ namespace Car_Seller.services
             newCokie.Cookie = cookie;
             await _connection.InsertAsync(newCokie);
         }
+
+        public async Task Clear()
+        {
+            var tmp = await _connection.Table<MyCookie>().ToListAsync();
+            foreach (var cookie in tmp)
+            {
+                await _connection.DeleteAsync(cookie);
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace Car_Seller
 {
     internal class ServerInteraction
     {
-        private static string HOST = "http://192.168.0.131";
+        private static string HOST = "http://192.168.233.117";
         private static string PORT = "8000";
         private static HttpClient client = new HttpClient { BaseAddress = new Uri(HOST + ":" + PORT), Timeout = TimeSpan.FromMilliseconds(1000) };
         private static CancellationTokenSource cts = new CancellationTokenSource();
@@ -265,10 +265,10 @@ namespace Car_Seller
                 throw new HttpRequestException("Ошибка соединения с сервером");
             }
         }
-    
+
         public static async Task<bool> SetLike(int carId)
         {
-            
+
             try
             {
                 if (!await SetCookieinClient())
@@ -277,7 +277,7 @@ namespace Car_Seller
                 }
                 HttpResponseMessage response = await client.PostAsync($"like/car/{carId}", new StringContent(""), cts.Token);
                 string content = await response.Content.ReadAsStringAsync();
-                
+
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     return true;
@@ -300,36 +300,36 @@ namespace Car_Seller
             {
                 if (ex.CancellationToken == cts.Token)
                 {
-                    
+
                     return false;
                 }
                 else
                 {
-                    
+
                     throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
                 }
             }
             catch (OperationCanceledException ex)
             {
-                
+
                 throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
             }
             catch (WebException ex)
             {
-                
+
                 throw;
             }
             catch (Exception ex)
             {
-                
+
                 throw new HttpRequestException("Ошибка соединения с сервером");
             }
-            
+
         }
-    
+
         public static async Task<bool> DeleteLike(int carId)
         {
-            
+
             try
             {
                 if (!await SetCookieinClient())
@@ -338,7 +338,7 @@ namespace Car_Seller
                 }
                 HttpResponseMessage response = await client.DeleteAsync($"like/car/{carId}", cts.Token);
                 string content = await response.Content.ReadAsStringAsync();
-                
+
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     return true;
@@ -361,33 +361,292 @@ namespace Car_Seller
             {
                 if (ex.CancellationToken == cts.Token)
                 {
-                    
+
                     return false;
                 }
                 else
                 {
-                    
+
                     throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
                 }
             }
             catch (OperationCanceledException ex)
             {
-                
+
                 throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
             }
             catch (WebException ex)
             {
-                
+
                 throw;
             }
             catch (Exception ex)
             {
-                
+
                 throw new HttpRequestException("Ошибка соединения с сервером");
             }
-            
+
         }
-    
+
+        public static async Task<bool> Logout()
+        {
+            try
+            {
+                if (!await SetCookieinClient())
+                {
+                    throw new WebException("Вы не авторизованы", (WebExceptionStatus)401);
+                }
+                HttpResponseMessage response = await client.PostAsync($"user/logout", new StringContent(""), cts.Token);
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    await cookieDB.Clear();
+                    return true;
+                }
+                else if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    await cookieDB.Clear();
+                    throw new WebException(content, (WebExceptionStatus)400);
+                }
+                return false;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (ex.CancellationToken == cts.Token)
+                {
+
+                    return false;
+                }
+                else
+                {
+
+                    throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+                }
+            }
+            catch (OperationCanceledException ex)
+            {
+
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+            }
+            catch (WebException ex)
+            {
+
+                throw;
+            }
+            catch (Exception ex)
+            {
+
+                throw new HttpRequestException("Ошибка соединения с сервером");
+            }
+        }
+
+        public static async Task<User> GetProfileData()
+        {
+            try
+            {
+                if (!await SetCookieinClient())
+                {
+                    throw new WebException("Вы не авторизованы", (WebExceptionStatus)401);
+                }
+                HttpResponseMessage response = await client.GetAsync($"user/me/", cts.Token);
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                    return User.FromDict(result);
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    await cookieDB.Clear();
+                    throw new WebException(content, (WebExceptionStatus)401);
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    await cookieDB.Clear();
+                    throw new WebException(content, (WebExceptionStatus)404);
+                }
+                throw new HttpRequestException();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+            }
+            catch (OperationCanceledException ex)
+            {
+
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+            }
+            catch (WebException ex)
+            {
+
+                throw;
+            }
+            catch (Exception ex)
+            {
+
+                throw new HttpRequestException("Ошибка соединения с сервером");
+            }
+        }
+
+        public static async Task<bool> ChangeUserData(string phoneNumber, string email, string password, string recaptcha)
+        {
+            try
+            {
+                if (!await SetCookieinClient())
+                {
+                    throw new WebException("Вы не авторизованы", (WebExceptionStatus)401);
+                }
+                string requestBody = JsonConvert.SerializeObject(new Dictionary<string, Dictionary<string, string>>()
+                    {
+                        {"recaptcha", new Dictionary<string, string>()
+                            {
+                                {"recaptcha_response", recaptcha }
+                            } 
+                        },
+                        {"user_new_data", new Dictionary<string, string>()
+                            {
+                                {"email", email },
+                                {"phone_number", phoneNumber},
+                                {"password", password}
+                            }
+                        }
+                });
+
+                HttpResponseMessage response = await client.PostAsync($"user/edit", new StringContent(requestBody, Encoding.UTF8, "application/json"), cts.Token);
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    await cookieDB.Clear();
+                    return true;
+                }
+                else if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new WebException(content, (WebExceptionStatus)400);
+                }
+                else if (response.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    throw new WebException(content, (WebExceptionStatus)403);
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new WebException(content, (WebExceptionStatus)401);
+                }
+                return false;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (ex.CancellationToken == cts.Token)
+                {
+
+                    return false;
+                }
+                else
+                {
+
+                    throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+                }
+            }
+            catch (OperationCanceledException ex)
+            {
+
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+            }
+            catch (WebException ex)
+            {
+
+                throw;
+            }
+            catch (Exception ex)
+            {
+
+                throw new HttpRequestException("Ошибка соединения с сервером");
+            }
+        }
+
+
+        public static async Task<bool> Register(string name, string surname, string email, string phoneNumber, string password, string recaptcha)
+        {
+            var registerData = new Dictionary<string, string>()
+            {
+                { "name", name },
+                { "surname", surname },
+                { "email", email },
+                { "password", password },
+                { "phone_number", phoneNumber },
+            };
+
+            var recaptchaData = new Dictionary<string, string>()
+            {
+                { "recaptcha_response", recaptcha }
+            };
+
+            var requestData = new Dictionary<string, Dictionary<string, string>>()
+            {
+                {"new_user_data", registerData },
+                {"recaptcha", recaptchaData }
+            };
+
+            var requestContent = JsonConvert.SerializeObject(requestData);
+            try
+            {
+                HttpResponseMessage response = await client.PostAsync("/user/new", new StringContent(requestContent, Encoding.UTF8, "application/json"), cts.Token);
+                string content = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new WebException(content, (WebExceptionStatus)400);
+                }
+                if (response.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    throw new WebException(content, (WebExceptionStatus)403);
+                }
+                var userData = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                return true;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (ex.CancellationToken == cts.Token)
+                {
+                    return false;
+                }
+                else
+                {
+                    throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+                }
+            }
+            catch (OperationCanceledException ex)
+            {
+                throw new HttpRequestException("Ошибка при выполнении HTTP-запроса");
+            }
+            catch (WebException ex)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpRequestException("Ошибка соединения с сервером");
+            }
+        }
+
+
         public static async Task<bool> SetCookieinClient()
         {
             string cookie = await cookieDB.GetJWTAsync();

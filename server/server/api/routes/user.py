@@ -45,7 +45,7 @@ async def new_user(request: Request, recaptcha: schemas.RecaptchaVerification, n
 
     found_user = database_get_user(user_email=new_user_data.email, user_phone_number=new_user_data.phone_number)
     if found_user is not None:
-        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST,
+        return JSONResponse(status_code=status.HTTP_403_FORBIDDEN,
                             content="Пользователь с таким телефоном и/или почтой уже зарегистрирован")
     added_user = database_new_user(new_user_data)
     return added_user

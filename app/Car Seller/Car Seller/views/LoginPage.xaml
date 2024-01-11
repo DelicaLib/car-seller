@@ -2,20 +2,53 @@
 <ContentPage
     x:Class="Car_Seller.views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Авторизация">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand">
                 <Frame
+                    x:Name="MyFrame"
                     BackgroundColor="{StaticResource AppBackgroundColor}"
                     CornerRadius="20"
-                    WidthRequest="320">
+                    HeightRequest="1550"
+                    VerticalOptions="FillAndExpand">
                     <StackLayout>
                         <Label
                             x:Name="ErrorLabel"
                             IsVisible="false"
                             Text="Неправильный логин и/или пароль"
                             TextColor="Red" />
+                        <StackLayout
+                            x:Name="NameLayout"
+                            Margin="0,0,0,30"
+                            IsVisible="false"
+                            Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Имя"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="NameEnrty"
+                                Margin="-3,-10,0,0"
+                                Placeholder="Имя"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout
+                            x:Name="SurnameLayout"
+                            Margin="0,0,0,30"
+                            IsVisible="false"
+                            Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Фамилия"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="SurnameEnrty"
+                                Margin="-3,-10,0,0"
+                                Placeholder="Фамилия"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
                         <StackLayout Margin="0,0,0,30" Orientation="Vertical">
                             <Label
                                 FontSize="18"
@@ -33,6 +66,28 @@
                                 Text="Почта введена неправильно"
                                 TextColor="Red" />
                         </StackLayout>
+                        <StackLayout
+                            x:Name="PhoneLayout"
+                            Margin="0,0,0,30"
+                            IsVisible="false"
+                            Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Номер телефона в формате (9889887766)"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="PhoneEnrty"
+                                Margin="-3,-10,0,0"
+                                Keyboard="Numeric"
+                                Placeholder="Номер телефона"
+                                TextChanged="PhoneEnrtyChanged"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Label
+                                x:Name="PhoneErrorLabel"
+                                IsVisible="false"
+                                Text="Неверный формат телефона"
+                                TextColor="Red" />
+                        </StackLayout>
                         <StackLayout Margin="0,0,0,30" Orientation="Vertical">
                             <Label
                                 FontSize="18"
@@ -44,6 +99,33 @@
                                 IsPassword="True"
                                 Placeholder="Пароль"
                                 TextColor="{StaticResource UnselectedColor}" />
+                            <Label
+                                x:Name="PasswordErrorLabel"
+                                IsVisible="false"
+                                Text="Неверный формат телефона"
+                                TextColor="Red" />
+                        </StackLayout>
+                        <StackLayout
+                            x:Name="PasswordRepeatLayout"
+                            Margin="0,0,0,30"
+                            IsVisible="false"
+                            Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Пароль"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="PasswordRepeatEnrty"
+                                Margin="-3,-10,0,0"
+                                IsPassword="True"
+                                Placeholder="Пароль"
+                                TextChanged="PasswordRepeaTextChanged"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Label
+                                x:Name="PasswordRepeatErrorLabel"
+                                IsVisible="false"
+                                Text="Пароли не совпадают"
+                                TextColor="Red" />
                         </StackLayout>
                         <Button
                             x:Name="LoginButton"
@@ -53,6 +135,15 @@
                             CornerRadius="20"
                             FontSize="20"
                             Text="Войти"
+                            TextColor="{StaticResource AppBackgroundColor}" />
+                        <Button
+                            x:Name="RegisterButton"
+                            Padding="15,10,15,10"
+                            BackgroundColor="{StaticResource SecondaryColor}"
+                            Clicked="RegisterButtonClicked"
+                            CornerRadius="20"
+                            FontSize="20"
+                            Text="Зарегистрироваться"
                             TextColor="{StaticResource AppBackgroundColor}" />
                         <Label
                             x:Name="RecaptchaErrorLabel"
