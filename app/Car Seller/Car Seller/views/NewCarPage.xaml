@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Car_Seller.views.NewCarPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Новое объявление">
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand">
+                <Frame
+                    x:Name="MyFrame"
+                    BackgroundColor="{StaticResource AppBackgroundColor}"
+                    CornerRadius="20"
+                    HeightRequest="2000"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Марка"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="BrandEntry"
+                                Margin="-3,-10,0,0"
+                                Placeholder="марка"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Модель"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="ModelEntry"
+                                Margin="-3,-10,0,0"
+                                Placeholder="Модель"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Город"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="CityEnrty"
+                                Margin="-3,-10,0,0"
+                                Placeholder="Город"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Кузов"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Picker
+                                x:Name="BodyPicker"
+                                Title="Кузов"
+                                Margin="-3,-10,0,0"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Коробка передач"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Picker
+                                x:Name="TransmissionPicker"
+                                Title="Коробка передач"
+                                Margin="-3,-10,0,0"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Двигатель"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Picker
+                                x:Name="EnginePicker"
+                                Title="Двигатель"
+                                Margin="-3,-10,0,0"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Привод"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Picker
+                                x:Name="DrivePicker"
+                                Title="Привод"
+                                Margin="-3,-10,0,0"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Описание"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Editor
+                                x:Name="DescriptionEditor"
+                                Margin="-3,-10,0,0"
+                                AutoSize="TextChanges"
+                                IsSpellCheckEnabled="false"
+                                MaxLength="4096"
+                                Placeholder="Описание"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Мощность двигателя, л.с"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="VolumeEditor"
+                                Margin="-3,-10,0,0"
+                                Keyboard="Numeric"
+                                Placeholder="0"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Год выпуска"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="ReleaseYearEditor"
+                                Margin="-3,-10,0,0"
+                                Keyboard="Numeric"
+                                Placeholder="2024"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Пробег, км"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="MileageEditor"
+                                Margin="-3,-10,0,0"
+                                Keyboard="Numeric"
+                                Placeholder="0"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <StackLayout Margin="0,0,0,30" Orientation="Vertical">
+                            <Label
+                                FontSize="18"
+                                Text="Цена, ₽"
+                                TextColor="{StaticResource UnselectedColor}" />
+                            <Entry
+                                x:Name="CostEditor"
+                                Margin="-3,-10,0,0"
+                                Keyboard="Numeric"
+                                Placeholder="0"
+                                TextColor="{StaticResource UnselectedColor}" />
+                        </StackLayout>
+                        <Image
+                            x:Name="Huy"
+                            Aspect="Fill"
+                            HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                            Source="{Binding .}"
+                            VerticalOptions="FillAndExpand" />
+                        <CollectionView
+                            x:Name="PhotosCollectionView"
+                            HeightRequest="300"
+                            HorizontalScrollBarVisibility="Always"
+                            ItemsSource="{Binding photoPathes}"
+                            VerticalScrollBarVisibility="Never">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Image
+                                            Aspect="Fill"
+                                            HorizontalOptions="FillAndExpand"
+                                            Source="{Binding .}"
+                                            VerticalOptions="FillAndExpand" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button
+                            x:Name="CreateButton"
+                            Padding="15,10,15,10"
+                            BackgroundColor="{StaticResource SecondaryColor}"
+                            Clicked="CreateClicked"
+                            CornerRadius="20"
+                            FontSize="20"
+                            Text="Создать"
+                            TextColor="{StaticResource AppBackgroundColor}" />
+                        <Label
+                            x:Name="RecaptchaErrorLabel"
+                            IsVisible="false"
+                            Text="Вы не прошли капчу"
+                            TextColor="Red" />
+                        <WebView x:Name="RecaptchaWebView" HeightRequest="500" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

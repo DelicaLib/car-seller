@@ -28,6 +28,7 @@ namespace Car_Seller
 
         public App()
         {
+            
             InitializeComponent();
             Routing.RegisterRoute("LoginPage", typeof(LoginPage));
             Routing.RegisterRoute("CarPage", typeof(CarPage));

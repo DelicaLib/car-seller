@@ -32,6 +32,11 @@
             Icon="search.png"
             Route="CatalogPage" />
         <ShellContent
+            Title="Выставить"
+            ContentTemplate="{DataTemplate local:NewCarPage}"
+            Icon="new_car.png"
+            Route="NewCarPage" />
+        <ShellContent
             Title="Личный кабинет"
             ContentTemplate="{DataTemplate local:ProfilePage}"
             Icon="profile.png"

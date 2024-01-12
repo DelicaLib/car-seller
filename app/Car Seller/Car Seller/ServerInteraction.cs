@@ -16,7 +16,7 @@ namespace Car_Seller
 {
     internal class ServerInteraction
     {
-        private static string HOST = "http://192.168.233.117";
+        private static string HOST = "http://172.16.9.218";
         private static string PORT = "8000";
         private static HttpClient client = new HttpClient { BaseAddress = new Uri(HOST + ":" + PORT), Timeout = TimeSpan.FromMilliseconds(1000) };
         private static CancellationTokenSource cts = new CancellationTokenSource();
@@ -202,6 +202,7 @@ namespace Car_Seller
 
         public static async Task<bool> Login(string email, string password, string recaptcha)
         {
+            AppContext.SetSwitch("System.Net.Http.UseSocketsHttpHandler", false);
             var loginData = new Dictionary<string, string>()
             {
                 { "email", email },
@@ -222,6 +223,7 @@ namespace Car_Seller
             var requestContent = JsonConvert.SerializeObject(requestData);
             try
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpResponseMessage response = await client.PostAsync("/user/login", new StringContent(requestContent, Encoding.UTF8, "application/json"), cts.Token);
                 string content = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
@@ -604,6 +606,7 @@ namespace Car_Seller
             var requestContent = JsonConvert.SerializeObject(requestData);
             try
             {
+                client.DefaultRequestHeaders.Clear();
                 HttpResponseMessage response = await client.PostAsync("/user/new", new StringContent(requestContent, Encoding.UTF8, "application/json"), cts.Token);
                 string content = await response.Content.ReadAsStringAsync();
                 if (response.StatusCode == HttpStatusCode.BadRequest)

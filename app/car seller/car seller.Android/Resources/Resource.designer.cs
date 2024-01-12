@@ -25,6 +25,228 @@ namespace Car_Seller.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Plugin.Permissions.Resource.Attribute.alpha = global::Car_Seller.Droid.Resource.Attribute.alpha;
+			global::Plugin.Permissions.Resource.Attribute.coordinatorLayoutStyle = global::Car_Seller.Droid.Resource.Attribute.coordinatorLayoutStyle;
+			global::Plugin.Permissions.Resource.Attribute.font = global::Car_Seller.Droid.Resource.Attribute.font;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderAuthority = global::Car_Seller.Droid.Resource.Attribute.fontProviderAuthority;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderCerts = global::Car_Seller.Droid.Resource.Attribute.fontProviderCerts;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderFetchStrategy = global::Car_Seller.Droid.Resource.Attribute.fontProviderFetchStrategy;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderFetchTimeout = global::Car_Seller.Droid.Resource.Attribute.fontProviderFetchTimeout;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderPackage = global::Car_Seller.Droid.Resource.Attribute.fontProviderPackage;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderQuery = global::Car_Seller.Droid.Resource.Attribute.fontProviderQuery;
+			global::Plugin.Permissions.Resource.Attribute.fontStyle = global::Car_Seller.Droid.Resource.Attribute.fontStyle;
+			global::Plugin.Permissions.Resource.Attribute.fontVariationSettings = global::Car_Seller.Droid.Resource.Attribute.fontVariationSettings;
+			global::Plugin.Permissions.Resource.Attribute.fontWeight = global::Car_Seller.Droid.Resource.Attribute.fontWeight;
+			global::Plugin.Permissions.Resource.Attribute.keylines = global::Car_Seller.Droid.Resource.Attribute.keylines;
+			global::Plugin.Permissions.Resource.Attribute.layout_anchor = global::Car_Seller.Droid.Resource.Attribute.layout_anchor;
+			global::Plugin.Permissions.Resource.Attribute.layout_anchorGravity = global::Car_Seller.Droid.Resource.Attribute.layout_anchorGravity;
+			global::Plugin.Permissions.Resource.Attribute.layout_behavior = global::Car_Seller.Droid.Resource.Attribute.layout_behavior;
+			global::Plugin.Permissions.Resource.Attribute.layout_dodgeInsetEdges = global::Car_Seller.Droid.Resource.Attribute.layout_dodgeInsetEdges;
+			global::Plugin.Permissions.Resource.Attribute.layout_insetEdge = global::Car_Seller.Droid.Resource.Attribute.layout_insetEdge;
+			global::Plugin.Permissions.Resource.Attribute.layout_keyline = global::Car_Seller.Droid.Resource.Attribute.layout_keyline;
+			global::Plugin.Permissions.Resource.Attribute.statusBarBackground = global::Car_Seller.Droid.Resource.Attribute.statusBarBackground;
+			global::Plugin.Permissions.Resource.Attribute.ttcIndex = global::Car_Seller.Droid.Resource.Attribute.ttcIndex;
+			global::Plugin.Permissions.Resource.Color.browser_actions_bg_grey = global::Car_Seller.Droid.Resource.Color.browser_actions_bg_grey;
+			global::Plugin.Permissions.Resource.Color.browser_actions_divider_color = global::Car_Seller.Droid.Resource.Color.browser_actions_divider_color;
+			global::Plugin.Permissions.Resource.Color.browser_actions_text_color = global::Car_Seller.Droid.Resource.Color.browser_actions_text_color;
+			global::Plugin.Permissions.Resource.Color.browser_actions_title_color = global::Car_Seller.Droid.Resource.Color.browser_actions_title_color;
+			global::Plugin.Permissions.Resource.Color.notification_action_color_filter = global::Car_Seller.Droid.Resource.Color.notification_action_color_filter;
+			global::Plugin.Permissions.Resource.Color.notification_icon_bg_color = global::Car_Seller.Droid.Resource.Color.notification_icon_bg_color;
+			global::Plugin.Permissions.Resource.Color.ripple_material_light = global::Car_Seller.Droid.Resource.Color.ripple_material_light;
+			global::Plugin.Permissions.Resource.Color.secondary_text_default_material_light = global::Car_Seller.Droid.Resource.Color.secondary_text_default_material_light;
+			global::Plugin.Permissions.Resource.Dimension.browser_actions_context_menu_max_width = global::Car_Seller.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::Plugin.Permissions.Resource.Dimension.browser_actions_context_menu_min_padding = global::Car_Seller.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_inset_horizontal_material = global::Car_Seller.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_inset_vertical_material = global::Car_Seller.Droid.Resource.Dimension.compat_button_inset_vertical_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_padding_horizontal_material = global::Car_Seller.Droid.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_padding_vertical_material = global::Car_Seller.Droid.Resource.Dimension.compat_button_padding_vertical_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_control_corner_material = global::Car_Seller.Droid.Resource.Dimension.compat_control_corner_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_notification_large_icon_max_height = global::Car_Seller.Droid.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::Plugin.Permissions.Resource.Dimension.compat_notification_large_icon_max_width = global::Car_Seller.Droid.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::Plugin.Permissions.Resource.Dimension.notification_action_icon_size = global::Car_Seller.Droid.Resource.Dimension.notification_action_icon_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_action_text_size = global::Car_Seller.Droid.Resource.Dimension.notification_action_text_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_big_circle_margin = global::Car_Seller.Droid.Resource.Dimension.notification_big_circle_margin;
+			global::Plugin.Permissions.Resource.Dimension.notification_content_margin_start = global::Car_Seller.Droid.Resource.Dimension.notification_content_margin_start;
+			global::Plugin.Permissions.Resource.Dimension.notification_large_icon_height = global::Car_Seller.Droid.Resource.Dimension.notification_large_icon_height;
+			global::Plugin.Permissions.Resource.Dimension.notification_large_icon_width = global::Car_Seller.Droid.Resource.Dimension.notification_large_icon_width;
+			global::Plugin.Permissions.Resource.Dimension.notification_main_column_padding_top = global::Car_Seller.Droid.Resource.Dimension.notification_main_column_padding_top;
+			global::Plugin.Permissions.Resource.Dimension.notification_media_narrow_margin = global::Car_Seller.Droid.Resource.Dimension.notification_media_narrow_margin;
+			global::Plugin.Permissions.Resource.Dimension.notification_right_icon_size = global::Car_Seller.Droid.Resource.Dimension.notification_right_icon_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_right_side_padding_top = global::Car_Seller.Droid.Resource.Dimension.notification_right_side_padding_top;
+			global::Plugin.Permissions.Resource.Dimension.notification_small_icon_background_padding = global::Car_Seller.Droid.Resource.Dimension.notification_small_icon_background_padding;
+			global::Plugin.Permissions.Resource.Dimension.notification_small_icon_size_as_large = global::Car_Seller.Droid.Resource.Dimension.notification_small_icon_size_as_large;
+			global::Plugin.Permissions.Resource.Dimension.notification_subtext_size = global::Car_Seller.Droid.Resource.Dimension.notification_subtext_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_top_pad = global::Car_Seller.Droid.Resource.Dimension.notification_top_pad;
+			global::Plugin.Permissions.Resource.Dimension.notification_top_pad_large_text = global::Car_Seller.Droid.Resource.Dimension.notification_top_pad_large_text;
+			global::Plugin.Permissions.Resource.Drawable.notification_action_background = global::Car_Seller.Droid.Resource.Drawable.notification_action_background;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg = global::Car_Seller.Droid.Resource.Drawable.notification_bg;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_low = global::Car_Seller.Droid.Resource.Drawable.notification_bg_low;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_low_normal = global::Car_Seller.Droid.Resource.Drawable.notification_bg_low_normal;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_low_pressed = global::Car_Seller.Droid.Resource.Drawable.notification_bg_low_pressed;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_normal = global::Car_Seller.Droid.Resource.Drawable.notification_bg_normal;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_normal_pressed = global::Car_Seller.Droid.Resource.Drawable.notification_bg_normal_pressed;
+			global::Plugin.Permissions.Resource.Drawable.notification_icon_background = global::Car_Seller.Droid.Resource.Drawable.notification_icon_background;
+			global::Plugin.Permissions.Resource.Drawable.notification_template_icon_bg = global::Car_Seller.Droid.Resource.Drawable.notification_template_icon_bg;
+			global::Plugin.Permissions.Resource.Drawable.notification_template_icon_low_bg = global::Car_Seller.Droid.Resource.Drawable.notification_template_icon_low_bg;
+			global::Plugin.Permissions.Resource.Drawable.notification_tile_bg = global::Car_Seller.Droid.Resource.Drawable.notification_tile_bg;
+			global::Plugin.Permissions.Resource.Drawable.notify_panel_notification_icon_bg = global::Car_Seller.Droid.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::Plugin.Permissions.Resource.Id.accessibility_action_clickable_span = global::Car_Seller.Droid.Resource.Id.accessibility_action_clickable_span;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_0 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_0;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_1 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_1;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_10 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_10;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_11 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_11;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_12 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_12;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_13 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_13;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_14 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_14;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_15 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_15;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_16 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_16;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_17 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_17;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_18 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_18;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_19 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_19;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_2 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_2;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_20 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_20;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_21 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_21;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_22 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_22;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_23 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_23;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_24 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_24;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_25 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_25;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_26 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_26;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_27 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_27;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_28 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_28;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_29 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_29;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_3 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_3;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_30 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_30;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_31 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_31;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_4 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_4;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_5 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_5;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_6 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_6;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_7 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_7;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_8 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_8;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_9 = global::Car_Seller.Droid.Resource.Id.accessibility_custom_action_9;
+			global::Plugin.Permissions.Resource.Id.actions = global::Car_Seller.Droid.Resource.Id.actions;
+			global::Plugin.Permissions.Resource.Id.action_container = global::Car_Seller.Droid.Resource.Id.action_container;
+			global::Plugin.Permissions.Resource.Id.action_divider = global::Car_Seller.Droid.Resource.Id.action_divider;
+			global::Plugin.Permissions.Resource.Id.action_image = global::Car_Seller.Droid.Resource.Id.action_image;
+			global::Plugin.Permissions.Resource.Id.action_text = global::Car_Seller.Droid.Resource.Id.action_text;
+			global::Plugin.Permissions.Resource.Id.all = global::Car_Seller.Droid.Resource.Id.all;
+			global::Plugin.Permissions.Resource.Id.async = global::Car_Seller.Droid.Resource.Id.async;
+			global::Plugin.Permissions.Resource.Id.blocking = global::Car_Seller.Droid.Resource.Id.blocking;
+			global::Plugin.Permissions.Resource.Id.bottom = global::Car_Seller.Droid.Resource.Id.bottom;
+			global::Plugin.Permissions.Resource.Id.browser_actions_header_text = global::Car_Seller.Droid.Resource.Id.browser_actions_header_text;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_items = global::Car_Seller.Droid.Resource.Id.browser_actions_menu_items;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_item_icon = global::Car_Seller.Droid.Resource.Id.browser_actions_menu_item_icon;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_item_text = global::Car_Seller.Droid.Resource.Id.browser_actions_menu_item_text;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_view = global::Car_Seller.Droid.Resource.Id.browser_actions_menu_view;
+			global::Plugin.Permissions.Resource.Id.center = global::Car_Seller.Droid.Resource.Id.center;
+			global::Plugin.Permissions.Resource.Id.center_horizontal = global::Car_Seller.Droid.Resource.Id.center_horizontal;
+			global::Plugin.Permissions.Resource.Id.center_vertical = global::Car_Seller.Droid.Resource.Id.center_vertical;
+			global::Plugin.Permissions.Resource.Id.chronometer = global::Car_Seller.Droid.Resource.Id.chronometer;
+			global::Plugin.Permissions.Resource.Id.clip_horizontal = global::Car_Seller.Droid.Resource.Id.clip_horizontal;
+			global::Plugin.Permissions.Resource.Id.clip_vertical = global::Car_Seller.Droid.Resource.Id.clip_vertical;
+			global::Plugin.Permissions.Resource.Id.dialog_button = global::Car_Seller.Droid.Resource.Id.dialog_button;
+			global::Plugin.Permissions.Resource.Id.end = global::Car_Seller.Droid.Resource.Id.end;
+			global::Plugin.Permissions.Resource.Id.fill = global::Car_Seller.Droid.Resource.Id.fill;
+			global::Plugin.Permissions.Resource.Id.fill_horizontal = global::Car_Seller.Droid.Resource.Id.fill_horizontal;
+			global::Plugin.Permissions.Resource.Id.fill_vertical = global::Car_Seller.Droid.Resource.Id.fill_vertical;
+			global::Plugin.Permissions.Resource.Id.forever = global::Car_Seller.Droid.Resource.Id.forever;
+			global::Plugin.Permissions.Resource.Id.icon = global::Car_Seller.Droid.Resource.Id.icon;
+			global::Plugin.Permissions.Resource.Id.icon_group = global::Car_Seller.Droid.Resource.Id.icon_group;
+			global::Plugin.Permissions.Resource.Id.info = global::Car_Seller.Droid.Resource.Id.info;
+			global::Plugin.Permissions.Resource.Id.italic = global::Car_Seller.Droid.Resource.Id.italic;
+			global::Plugin.Permissions.Resource.Id.left = global::Car_Seller.Droid.Resource.Id.left;
+			global::Plugin.Permissions.Resource.Id.line1 = global::Car_Seller.Droid.Resource.Id.line1;
+			global::Plugin.Permissions.Resource.Id.line3 = global::Car_Seller.Droid.Resource.Id.line3;
+			global::Plugin.Permissions.Resource.Id.none = global::Car_Seller.Droid.Resource.Id.none;
+			global::Plugin.Permissions.Resource.Id.normal = global::Car_Seller.Droid.Resource.Id.normal;
+			global::Plugin.Permissions.Resource.Id.notification_background = global::Car_Seller.Droid.Resource.Id.notification_background;
+			global::Plugin.Permissions.Resource.Id.notification_main_column = global::Car_Seller.Droid.Resource.Id.notification_main_column;
+			global::Plugin.Permissions.Resource.Id.notification_main_column_container = global::Car_Seller.Droid.Resource.Id.notification_main_column_container;
+			global::Plugin.Permissions.Resource.Id.right = global::Car_Seller.Droid.Resource.Id.right;
+			global::Plugin.Permissions.Resource.Id.right_icon = global::Car_Seller.Droid.Resource.Id.right_icon;
+			global::Plugin.Permissions.Resource.Id.right_side = global::Car_Seller.Droid.Resource.Id.right_side;
+			global::Plugin.Permissions.Resource.Id.start = global::Car_Seller.Droid.Resource.Id.start;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_actions = global::Car_Seller.Droid.Resource.Id.tag_accessibility_actions;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_clickable_spans = global::Car_Seller.Droid.Resource.Id.tag_accessibility_clickable_spans;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_heading = global::Car_Seller.Droid.Resource.Id.tag_accessibility_heading;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_pane_title = global::Car_Seller.Droid.Resource.Id.tag_accessibility_pane_title;
+			global::Plugin.Permissions.Resource.Id.tag_screen_reader_focusable = global::Car_Seller.Droid.Resource.Id.tag_screen_reader_focusable;
+			global::Plugin.Permissions.Resource.Id.tag_transition_group = global::Car_Seller.Droid.Resource.Id.tag_transition_group;
+			global::Plugin.Permissions.Resource.Id.tag_unhandled_key_event_manager = global::Car_Seller.Droid.Resource.Id.tag_unhandled_key_event_manager;
+			global::Plugin.Permissions.Resource.Id.tag_unhandled_key_listeners = global::Car_Seller.Droid.Resource.Id.tag_unhandled_key_listeners;
+			global::Plugin.Permissions.Resource.Id.text = global::Car_Seller.Droid.Resource.Id.text;
+			global::Plugin.Permissions.Resource.Id.text2 = global::Car_Seller.Droid.Resource.Id.text2;
+			global::Plugin.Permissions.Resource.Id.time = global::Car_Seller.Droid.Resource.Id.time;
+			global::Plugin.Permissions.Resource.Id.title = global::Car_Seller.Droid.Resource.Id.title;
+			global::Plugin.Permissions.Resource.Id.top = global::Car_Seller.Droid.Resource.Id.top;
+			global::Plugin.Permissions.Resource.Integer.status_bar_notification_info_maxnum = global::Car_Seller.Droid.Resource.Integer.status_bar_notification_info_maxnum;
+			global::Plugin.Permissions.Resource.Layout.browser_actions_context_menu_page = global::Car_Seller.Droid.Resource.Layout.browser_actions_context_menu_page;
+			global::Plugin.Permissions.Resource.Layout.browser_actions_context_menu_row = global::Car_Seller.Droid.Resource.Layout.browser_actions_context_menu_row;
+			global::Plugin.Permissions.Resource.Layout.custom_dialog = global::Car_Seller.Droid.Resource.Layout.custom_dialog;
+			global::Plugin.Permissions.Resource.Layout.notification_action = global::Car_Seller.Droid.Resource.Layout.notification_action;
+			global::Plugin.Permissions.Resource.Layout.notification_action_tombstone = global::Car_Seller.Droid.Resource.Layout.notification_action_tombstone;
+			global::Plugin.Permissions.Resource.Layout.notification_template_custom_big = global::Car_Seller.Droid.Resource.Layout.notification_template_custom_big;
+			global::Plugin.Permissions.Resource.Layout.notification_template_icon_group = global::Car_Seller.Droid.Resource.Layout.notification_template_icon_group;
+			global::Plugin.Permissions.Resource.Layout.notification_template_part_chronometer = global::Car_Seller.Droid.Resource.Layout.notification_template_part_chronometer;
+			global::Plugin.Permissions.Resource.Layout.notification_template_part_time = global::Car_Seller.Droid.Resource.Layout.notification_template_part_time;
+			global::Plugin.Permissions.Resource.String.status_bar_notification_info_overflow = global::Car_Seller.Droid.Resource.String.status_bar_notification_info_overflow;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification = global::Car_Seller.Droid.Resource.Style.TextAppearance_Compat_Notification;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Info = global::Car_Seller.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::Car_Seller.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Time = global::Car_Seller.Droid.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Title = global::Car_Seller.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::Plugin.Permissions.Resource.Style.Widget_Compat_NotificationActionContainer = global::Car_Seller.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::Plugin.Permissions.Resource.Style.Widget_Compat_NotificationActionText = global::Car_Seller.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Plugin.Permissions.Resource.Style.Widget_Support_CoordinatorLayout = global::Car_Seller.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem = global::Car_Seller.Droid.Resource.Styleable.ColorStateListItem;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem_alpha = global::Car_Seller.Droid.Resource.Styleable.ColorStateListItem_alpha;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem_android_alpha = global::Car_Seller.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem_android_color = global::Car_Seller.Droid.Resource.Styleable.ColorStateListItem_android_color;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_keylines = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_keylines;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::Car_Seller.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily = global::Car_Seller.Droid.Resource.Styleable.FontFamily;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_font = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_fontStyle = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_fontWeight = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_font = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_font;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_fontStyle = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_fontWeight = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_ttcIndex = global::Car_Seller.Droid.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderAuthority = global::Car_Seller.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderCerts = global::Car_Seller.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::Car_Seller.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::Car_Seller.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderPackage = global::Car_Seller.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderQuery = global::Car_Seller.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor = global::Car_Seller.Droid.Resource.Styleable.GradientColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColorItem = global::Car_Seller.Droid.Resource.Styleable.GradientColorItem;
+			global::Plugin.Permissions.Resource.Styleable.GradientColorItem_android_color = global::Car_Seller.Droid.Resource.Styleable.GradientColorItem_android_color;
+			global::Plugin.Permissions.Resource.Styleable.GradientColorItem_android_offset = global::Car_Seller.Droid.Resource.Styleable.GradientColorItem_android_offset;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_centerColor = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_centerColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_centerX = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_centerX;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_centerY = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_centerY;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_endColor = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_endColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_endX = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_endX;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_endY = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_endY;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_gradientRadius = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_startColor = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_startColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_startX = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_startX;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_startY = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_startY;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_tileMode = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_tileMode;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_type = global::Car_Seller.Droid.Resource.Styleable.GradientColor_android_type;
+			global::Plugin.Permissions.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::Car_Seller.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::Car_Seller.Droid.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::Car_Seller.Droid.Resource.Attribute.font;
 			global::Xamarin.Essentials.Resource.Attribute.fontProviderAuthority = global::Car_Seller.Droid.Resource.Attribute.fontProviderAuthority;
@@ -19265,58 +19487,61 @@ namespace Car_Seller.Droid
 			public const int navigation_empty_icon = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int notification_action_background = 2131165316;
+			public const int new_car = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int notification_bg = 2131165317;
+			public const int notification_action_background = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int notification_bg_low = 2131165318;
+			public const int notification_bg = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int notification_bg_low_normal = 2131165319;
+			public const int notification_bg_low = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int notification_bg_low_pressed = 2131165320;
+			public const int notification_bg_low_normal = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int notification_bg_normal = 2131165321;
+			public const int notification_bg_low_pressed = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int notification_bg_normal_pressed = 2131165322;
+			public const int notification_bg_normal = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int notification_icon_background = 2131165323;
+			public const int notification_bg_normal_pressed = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int notification_template_icon_bg = 2131165324;
+			public const int notification_icon_background = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int notification_template_icon_low_bg = 2131165325;
+			public const int notification_template_icon_bg = 2131165325;
 			
 			// aapt resource value: 0x7F07008E
-			public const int notification_tile_bg = 2131165326;
+			public const int notification_template_icon_low_bg = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int notify_panel_notification_icon_bg = 2131165327;
+			public const int notification_tile_bg = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int preference_list_divider_material = 2131165328;
+			public const int notify_panel_notification_icon_bg = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int profile = 2131165329;
+			public const int preference_list_divider_material = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int search = 2131165330;
+			public const int profile = 2131165330;
 			
 			// aapt resource value: 0x7F070093
-			public const int test_custom_background = 2131165331;
+			public const int search = 2131165331;
 			
 			// aapt resource value: 0x7F070094
-			public const int tooltip_frame_dark = 2131165332;
+			public const int test_custom_background = 2131165332;
 			
 			// aapt resource value: 0x7F070095
-			public const int tooltip_frame_light = 2131165333;
+			public const int tooltip_frame_dark = 2131165333;
+			
+			// aapt resource value: 0x7F070096
+			public const int tooltip_frame_light = 2131165334;
 			
 			static Drawable()
 			{
